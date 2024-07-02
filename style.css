@@ -1,49 +1,58 @@
-img{
-  border-radius:50%
-}
-
-body{
-  background-color:black;
-}
-
-h1{
-  color:white;
-  font-family:Inter;
-  font-weight:bold;
-}
-
-.pfp{
-  display:flex;
-  justify-content:center;
-}
-
-.username{
-  display:flex;
-  justify-content:center;
-  margin-bottom: -40px; /* Reduce the bottom margin */
-}
-
-.pronoun{
-  font-family: Inter;
-  display:flex;
-  justify-content:center;
-  color: gray;
-}
-.description{
-  font-family:Inter;
-  display:flex;
-  justify-content:center;
-  color:white;
-}
-
-a{
-    font-size:xx-large;
-    color:white;
-}
-#links {
+img {
+    border-radius: 50%;
+  }
+  
+  body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Remove default margin */
+  }
+  
+  h1 {
+    color: white;
+    font-family: Inter;
+    font-weight: bold;
+  }
+  
+  .pfp {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .username {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -40px; /* Reduce the bottom margin */
+  }
+  
+  .pronoun {
+    font-family: Inter;
+    display: flex;
+    justify-content: center;
+    color: gray;
+  }
+  
+  .description {
+    font-family: Inter;
+    display: flex;
+    justify-content: center;
+    color: white;
+  }
+  
+  a {
+    font-size: xx-large;
+    color: white;
+  }
+  
+  #links {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px; /* Add some space between icons */
-    margin-top: 5px; /* Adjust as needed */
+    margin-top: 20px; /* Adjust as needed */
   }
+  
