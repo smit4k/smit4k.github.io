@@ -1,0 +1,38 @@
+img{
+    border-radius:50%
+  }
+  
+  body{
+    background-color:black;
+  }
+  
+  h1{
+    color:white;
+    font-family:Inter;
+    font-weight:bold;
+  }
+  
+  .pfp{
+    display:flex;
+    justify-content:center;
+  }
+  
+  .username{
+    display:flex;
+    justify-content:center;
+    margin-bottom: -40px; /* Reduce the bottom margin */
+  }
+  
+  .pronoun{
+    font-family: Inter;
+    display:flex;
+    justify-content:center;
+    color: gray;
+  }
+  .description{
+    font-family:Inter;
+    display:flex;
+    justify-content:center;
+    color:white;
+  }
+  
