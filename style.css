@@ -1,38 +1,49 @@
 img{
-    border-radius:50%
-  }
-  
-  body{
-    background-color:black;
-  }
-  
-  h1{
+  border-radius:50%
+}
+
+body{
+  background-color:black;
+}
+
+h1{
+  color:white;
+  font-family:Inter;
+  font-weight:bold;
+}
+
+.pfp{
+  display:flex;
+  justify-content:center;
+}
+
+.username{
+  display:flex;
+  justify-content:center;
+  margin-bottom: -40px; /* Reduce the bottom margin */
+}
+
+.pronoun{
+  font-family: Inter;
+  display:flex;
+  justify-content:center;
+  color: gray;
+}
+.description{
+  font-family:Inter;
+  display:flex;
+  justify-content:center;
+  color:white;
+}
+
+a{
+    font-size:xx-large;
     color:white;
-    font-family:Inter;
-    font-weight:bold;
+}
+#links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Add some space between icons */
+    margin-top: 5px; /* Adjust as needed */
   }
-  
-  .pfp{
-    display:flex;
-    justify-content:center;
-  }
-  
-  .username{
-    display:flex;
-    justify-content:center;
-    margin-bottom: -40px; /* Reduce the bottom margin */
-  }
-  
-  .pronoun{
-    font-family: Inter;
-    display:flex;
-    justify-content:center;
-    color: gray;
-  }
-  .description{
-    font-family:Inter;
-    display:flex;
-    justify-content:center;
-    color:white;
-  }
-  
