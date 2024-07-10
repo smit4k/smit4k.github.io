@@ -114,6 +114,21 @@ a:hover {
   transform: scale(1.2);
 }
 
+.footer-text {
+  font-size: 0.8em;
+  color: white;
+}
+
+footer {
+  font-family: Inter;
+  position: fixed; 
+  bottom: 0; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 100%;
+  text-align: center;
+}
+
 #links {
   display: flex;
   justify-content: center;
