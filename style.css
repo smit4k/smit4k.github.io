@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+html {
+  cursor:none;
+}
+
+#circularcursor {
+  background-color: rgba(255, 255, 255, 0.750);
+  border: 2px solid black;    
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.1s ease, height 0.1s ease;
+}
+
+#circularcursor.clicked {
+  transform: translate(-50%, -50%) scale(1.0);
+  width: 20px; 
+  height: 20px;
+}
+
+
 img {
     border-radius: 50%;
     border: 3px solid white;
@@ -111,6 +135,7 @@ a {
 }
 
 a:hover {
+  cursor:none;
   transform: scale(1.2);
 }
 

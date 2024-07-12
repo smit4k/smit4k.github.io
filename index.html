@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
+    <div id="circularcursor"></div>
     <div class="pfp">
         <img src="https://avatars.githubusercontent.com/u/92962589?v=4" width="150px" height="150px">
     </div>
@@ -49,5 +50,20 @@
     <footer>
         <p class="footer-text">❲ Made with ♡ by Saber · Hosted by Github Pages ❳</p>
     </footer>
+    <script>
+        const cursor = document.getElementById('circularcursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+        
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('clicked');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('clicked');
+        });
+    </script>
     </body>
 </html>
