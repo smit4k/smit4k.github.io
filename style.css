@@ -23,6 +23,11 @@ html {
   height: 20px;
 }
 
+@media (max-width: 768px) {
+  #circularcursor {
+    display: none;
+  }
+}
 
 img {
     border-radius: 50%;
