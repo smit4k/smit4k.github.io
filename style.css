@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-html {
+/* html {
   cursor:none;
 }
 
@@ -28,6 +28,7 @@ html {
     display: none;
   }
 }
+*/
 
 img {
     border-radius: 50%;
@@ -68,7 +69,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: rgba(255, 255, 255, 0.178); /* Add background color on hover */
+  background-color: rgba(255, 255, 255, 0.178);
 }
 
 body {
@@ -140,7 +141,6 @@ a {
 }
 
 a:hover {
-  cursor:none;
   transform: scale(1.2);
 }
 
