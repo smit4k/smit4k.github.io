@@ -54,5 +54,20 @@
     <footer>
         <p class="footer-text">❲ Made with ♡ by Saber · Hosted by Github Pages ❳</p>
     </footer>
+    <script>
+        const cursor = document.getElementById('circularcursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+        
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('clicked');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('clicked');
+        });
+    </script>
     </body>
 </html>
