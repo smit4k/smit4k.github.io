@@ -10,4 +10,3 @@ If you have a suggestion, make an [Issue](https://github.com/smit4k/smit4k.githu
 - [x] Make better background
 - [ ] Add projects page
 - [ ] Add blog
-- [ ] CSS --> SCSS
