@@ -134,6 +134,13 @@ nav ul li a {
   font-size:medium;
 }
 
+h3 {
+  color: white;
+  font-family: Inter;
+  font-weight: 500;
+  text-align: center;
+}
+
 nav ul li a:hover {
   background-color: rgba(255, 255, 255, 0.178);
 }
@@ -193,7 +200,8 @@ h1 {
   margin-bottom: -10px;  
   max-width: 80%;      
   text-align: center;  
-  line-height: 1.5;    
+  line-height: 1.5;
+  font-weight: normal !important;    
 }
 
 #links {
