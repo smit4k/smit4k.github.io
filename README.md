@@ -1,4 +1,4 @@
-# My Personal Website
+# My Homepage
 This is just a website that I made to be simple, _visually appealing_ and link to my other socials.
 
 Check it out [here](https://smit4k.github.io)
