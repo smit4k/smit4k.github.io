@@ -15,7 +15,7 @@ section{
   width: 100%;
   height: 100vh;
   /* https://lh3.googleusercontent.com/ka_5IYJDRkXZnbptxq64LPuggGL5FM8gnpJlsuSiOQh4b39kMkiRbVfX8iK8bjMg5SLkdfoix09P60wyFjN2=w681-h614 */
-background-color:black;
+  background-color:black;
   background-size: cover;
   animation: animateBg 50s linear infinite;
   z-index:-1;
@@ -151,7 +151,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
-  background-color: rgb(22, 22, 22);
+  background-color: rgb(0, 0, 0);
   overflow: hidden;
   animation: fadeInAnimation ease 3s;
   animation-iteration-count: 1;
