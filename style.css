@@ -73,6 +73,10 @@ small {
     color: #6364FF;
 }
 
+#links a[href*="discord"]:hover h2 {
+    color: #5865F2;
+}
+
 #links a[href*="leetcode"]:hover h2 {
     color: #FFA116;
 }
