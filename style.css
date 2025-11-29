@@ -61,6 +61,10 @@ small {
     color: #5FED83;
 }
 
+#links a[href*="linkedin"]:hover h2 {
+    color: #0A66C2;
+}
+
 #links a[href*="youtube"]:hover h2 {
     color: #FF0000;
 }
