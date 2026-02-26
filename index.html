@@ -1,74 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#000000">
-    <title>Smit's Homepage</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>smit4k.github.io</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width">
+    <meta name="color-scheme" content="light dark">
+    <script>
+        // Prevent flash of wrong theme on page load
+        (function () {
+            var theme = localStorage.getItem('theme');
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-    <main>
-        <script src="app.js"></script>
-        <div id="username">
+    <div class="wrapper">
+        <header>
             <h1>smit4k</h1>
-        </div>
-        <div id="description">
-            <small>open-source enthusiast</small>
-            <br>
-            <small>Michigan, USA</small>
-            <br>
-            <a href="mailto:smit@smit.codes">
-                <small>smit@smit.codes</small></a>
-            <br>
-            <a href="https://smit.codes"><small>smit.codes</small></a>
-        </div>
-        <div id="links">
-            <a href="https://github.com/smit4k/">
-                <h2>Github</h2>
-            </a>
-            <a href="https://www.linkedin.com/in/smit-patil-35190a301/">
-                <h2>Linkedin</h2>
-            </a>
-            <a href="https://youtube.com/@smitdev">
-                <h2>YouTube</h2>
-            </a>
-            <a href="https://twitch.tv/saberdevstreams">
-                <h2>Twitch</h2>
-            </a>
-            <a href="https://mastodon.social/@xbr">
-                <h2>Mastodon</h2>
-            </a>
-            <a href="https://discord.com/users/562359659391090689">
-                <h2>Discord</h2>
-            </a>
-            <a href="https://leetcode.com/u/smit4k/">
-                <h2>Leetcode</h2>
-            </a>
-            <a href="https://osu.ppy.sh/users/25232350">
-                <h2>Osu!</h2>
-            </a>
-            <a href="https://steamcommunity.com/id/xvpt">
-                <h2>Steam</h2>
-            </a>
-            <a href="https://x.com/saberdevx">
-                <h2>X</h2>
-            </a>
-        </div>
-    </main>
-    <script src="donut.js"></script>
+            <p class="view">
+                <small>open source enthusiast</small>
+                <br>
+                <small>Michigan, USA</small>
+                <br>
+                <small><a href="mailto:smit@smit.codes">smit@smit.codes</a></small>
+            </p>
+        </header>
+        <section>
+            <h1>smit4k.github.io</h1>
+
+            <h2>About me</h2>
+            <p> Hey! My name is Smit, and I'm a high school student in Michigan, interested in software development,
+                Linux,
+                and robotics. I enjoy programming in my free time and making Minecraft mods as well as Neovim plugins
+            </p>
+
+
+            <h2>Links</h2>
+            <ul>
+                <li><a href="https://github.com/smit4k">Github</a></li>
+                <li><a href="mailto:smit@smit.codes">Email</a></li>
+                <li><a href="https://linkedin.com/in/smit-pa">Linkedin</a></li>
+                <li><a href="https://smit@smit.codes">Main website</a></li>
+            </ul>
+
+            <h2>Featured Projects</h2>
+
+            <h3><a href="https://github.com/smit4k/snapshot.nvim">snapshot.nvim</a></h3>
+            <ul>
+                <li>Create beautiful screenshots of your code, directly inside Neovim</li>
+                <li>Code screenshots with syntax highlighting</li>
+                <li>Highly customizable settings (line numbers, padding, render scale)</li>
+                <li>Blazingly fast Rust-powered renderer</li>
+            </ul>
+
+            <h3><a href="https://github.com/smit4k/badges.nvim">badges.nvim</a></h3>
+            <ul>
+                <li>Easily insert <a href="https://shields.io">badges</a>, directly inside of Neovim!</li>
+                <li>Choose different badge styles</li>
+                <li>Over 300+ badges or make your own badge!</li>
+            </ul>
+
+        </section>
+        <footer>
+            <p><small>Hosted on GitHub Pages &mdash; Theme by <a
+                        href="https://github.com/orderedlist">orderedlist</a></small></p>
+        </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    <script>
+        (function () {
+            const toggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            function getSystemTheme() {
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            function getEffectiveTheme() {
+                const stored = localStorage.getItem('theme');
+                if (stored) return stored;
+                return getSystemTheme();
+            }
+
+            // Apply saved theme on load
+            applyTheme(getEffectiveTheme());
+
+            // Listen for OS theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(getSystemTheme());
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>
