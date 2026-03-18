@@ -39,6 +39,15 @@ h1 {
     padding: 72px 0 48px;
 }
 
+.page > h1,
+.lede,
+.list,
+.footer,
+.row {
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
 .kicker {
     margin-bottom: 16px;
     color: var(--muted);
@@ -53,6 +62,7 @@ h1 {
     letter-spacing: -0.06em;
     font-weight: 700;
     max-width: 8ch;
+    animation: bobber-rise 1s cubic-bezier(0.18, 0.9, 0.24, 1.24) 0.08s forwards;
 }
 
 .lede {
@@ -60,11 +70,13 @@ h1 {
     max-width: 34rem;
     color: var(--muted);
     font-size: 1.08rem;
+    animation: fade-lift 0.8s ease 0.34s forwards;
 }
 
 .list {
     margin-top: 64px;
     border-top: 1px solid var(--line);
+    animation: fade-lift 0.85s ease 0.48s forwards;
 }
 
 .row {
@@ -73,6 +85,7 @@ h1 {
     gap: 24px;
     padding: 18px 0 20px;
     border-bottom: 1px solid var(--line);
+    animation: fade-lift 0.7s ease forwards;
 }
 
 .label {
@@ -90,6 +103,7 @@ h1 {
 
 .footer {
     margin-top: 40px;
+    animation: fade-lift 0.8s ease 0.72s forwards;
 }
 
 .github-link {
@@ -107,6 +121,71 @@ h1 {
     width: 24px;
     height: 24px;
     fill: currentColor;
+}
+
+.row:nth-child(1) {
+    animation-delay: 0.58s;
+}
+
+.row:nth-child(2) {
+    animation-delay: 0.66s;
+}
+
+.row:nth-child(3) {
+    animation-delay: 0.74s;
+}
+
+.row:nth-child(4) {
+    animation-delay: 0.82s;
+}
+
+.row:nth-child(5) {
+    animation-delay: 0.9s;
+}
+
+@keyframes bobber-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.985);
+    }
+
+    58% {
+        opacity: 1;
+        transform: translateY(-14px) scale(1.01);
+    }
+
+    78% {
+        transform: translateY(5px) scale(0.998);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fade-lift {
+    0% {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page > h1,
+    .lede,
+    .list,
+    .footer,
+    .row {
+        opacity: 1;
+        animation: none;
+        transform: none;
+    }
 }
 
 @media (max-width: 640px) {
