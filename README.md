@@ -1,14 +1,8 @@
-# Minimal Theme
+# smit4k.github.io
 
-[Demo the Theme](https://orderedlist.com/minimal/)
+Minimal static personal site focused on setup and config details.
 
-This is the raw HTML and styles that are used for the *minimal* theme on [GitHub Pages](http://pages.github.com/).
+## Structure
 
-Syntax highlighting is provided on GitHub Pages by [Pygments](http://pygments.org).
-
-# License
-
-This work is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
-
-
-
+- `index.html` contains the full page markup.
+- `stylesheets/styles.css` contains the visual system and responsive layout.
