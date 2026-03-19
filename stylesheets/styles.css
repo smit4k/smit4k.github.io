@@ -16,19 +16,30 @@
 
 html {
     height: 100%;
-    overflow: hidden;
+    scrollbar-width: none;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    height: 100%;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at top left, rgba(212, 202, 185, 0.45), transparent 28%),
-        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
+    overflow-y: auto;
+    background: var(--bg);
     color: var(--text);
     font: 16px/1.55 "JetBrains Mono", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    display: grid;
+    place-items: center;
+    scrollbar-width: none;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: min(38vh, 360px);
+    background: linear-gradient(180deg, #fbf7f0 0%, rgba(251, 247, 240, 0) 100%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 p,
@@ -38,11 +49,15 @@ h1 {
 
 .page {
     width: min(760px, calc(100vw - 48px));
+    min-height: 100vh;
     margin: 0 auto;
     padding: 72px 0 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.page > h1,
+.page>h1,
 .lede,
 .list,
 .footer,
@@ -123,7 +138,20 @@ h1 {
 .github-link svg {
     width: 24px;
     height: 24px;
+    display: block;
+}
+
+.github-link svg {
     fill: currentColor;
+}
+
+.github-link path {
+    fill: currentColor;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .row:nth-child(1) {
@@ -180,7 +208,8 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .page > h1,
+
+    .page>h1,
     .lede,
     .list,
     .footer,
