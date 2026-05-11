@@ -1,11 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-
 :root {
-    --bg: #f6f1e8;
-    --text: #161412;
-    --muted: #6d665f;
-    --line: rgba(22, 20, 18, 0.14);
+    --bg: #000;
+    --fg: #d7d7d7;
 }
 
 *,
@@ -14,229 +9,50 @@
     box-sizing: border-box;
 }
 
-html {
-    height: 100%;
-    scrollbar-width: none;
+html,
+body {
+    min-height: 100%;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    overflow-y: auto;
     background: var(--bg);
-    color: var(--text);
-    font: 16px/1.55 "JetBrains Mono", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    color: var(--fg);
     display: grid;
     place-items: center;
-    scrollbar-width: none;
-    position: relative;
+    overflow: hidden;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0 0 auto;
-    height: min(38vh, 360px);
-    background: linear-gradient(180deg, #fbf7f0 0%, rgba(251, 247, 240, 0) 100%);
-    pointer-events: none;
-    z-index: -1;
-}
-
-p,
-h1 {
-    margin: 0;
-}
-
-.page {
-    width: min(760px, calc(100vw - 48px));
-    min-height: 100vh;
-    margin: 0 auto;
-    padding: 72px 0 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.page>h1,
-.lede,
-.list,
-.footer,
-.row {
-    opacity: 0;
-    animation-fill-mode: forwards;
-}
-
-.kicker {
-    margin-bottom: 16px;
-    color: var(--muted);
-    font: 600 0.78rem/1.2 "SF Mono", "JetBrains Mono", "Fira Code", monospace;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-}
-
-h1 {
-    font-size: clamp(3.1rem, 8vw, 6.4rem);
-    line-height: 0.92;
-    letter-spacing: -0.06em;
-    font-weight: 700;
-    max-width: 8ch;
-    animation: bobber-rise 1s cubic-bezier(0.18, 0.9, 0.24, 1.24) 0.08s forwards;
-}
-
-.lede {
-    margin-top: 22px;
-    max-width: 34rem;
-    color: var(--muted);
-    font-size: 1.08rem;
-    animation: fade-lift 0.8s ease 0.34s forwards;
-}
-
-.list {
-    margin-top: 64px;
-    border-top: 1px solid var(--line);
-    animation: fade-lift 0.85s ease 0.48s forwards;
-}
-
-.row {
+.terminal-wrap {
+    width: 100%;
+    padding: 24px;
     display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 24px;
-    padding: 18px 0 20px;
-    border-bottom: 1px solid var(--line);
-    animation: fade-lift 0.7s ease forwards;
+    place-items: center;
 }
 
-.label {
-    color: var(--muted);
-    font: 600 0.78rem/1.4 "SF Mono", "JetBrains Mono", "Fira Code", monospace;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+.terminal {
+    margin: 0;
+    color: var(--fg);
+    font: 500 clamp(0.78rem, 2.9vw, 1.08rem) / 1.35 ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", "Liberation Mono", Menlo, Consolas, monospace;
+    letter-spacing: 0;
+    white-space: pre;
+    text-rendering: geometricPrecision;
 }
 
-.value {
-    font-size: 1.35rem;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
+.terminal a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.footer {
-    margin-top: 40px;
-    animation: fade-lift 0.8s ease 0.72s forwards;
+.terminal a:hover,
+.terminal a:focus-visible {
+    background: var(--fg);
+    color: var(--bg);
+    outline: 0;
 }
 
-.github-link {
-    display: inline-flex;
-    color: var(--muted);
-    transition: color 160ms ease, transform 160ms ease;
-}
-
-.github-link:hover {
-    color: var(--text);
-    transform: translateY(-1px);
-}
-
-.github-link svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-}
-
-.github-link svg {
-    fill: currentColor;
-}
-
-.github-link path {
-    fill: currentColor;
-}
-
-body::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
-
-.row:nth-child(1) {
-    animation-delay: 0.58s;
-}
-
-.row:nth-child(2) {
-    animation-delay: 0.66s;
-}
-
-.row:nth-child(3) {
-    animation-delay: 0.74s;
-}
-
-.row:nth-child(4) {
-    animation-delay: 0.82s;
-}
-
-.row:nth-child(5) {
-    animation-delay: 0.9s;
-}
-
-@keyframes bobber-rise {
-    0% {
-        opacity: 0;
-        transform: translateY(60px) scale(0.985);
-    }
-
-    58% {
-        opacity: 1;
-        transform: translateY(-14px) scale(1.01);
-    }
-
-    78% {
-        transform: translateY(5px) scale(0.998);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes fade-lift {
-    0% {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .page>h1,
-    .lede,
-    .list,
-    .footer,
-    .row {
-        opacity: 1;
-        animation: none;
-        transform: none;
-    }
-}
-
-@media (max-width: 640px) {
-    .page {
-        width: min(100vw - 28px, 760px);
-        padding: 44px 0 28px;
-    }
-
-    .list {
-        margin-top: 44px;
-    }
-
-    .row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 16px 0 18px;
-    }
-
-    .value {
-        font-size: 1.15rem;
-    }
+::selection {
+    background: var(--fg);
+    color: var(--bg);
 }
