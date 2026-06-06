@@ -24,6 +24,15 @@ function postAssetPath(path) {
     return `posts/${path}`;
 }
 
+function copyableCodeBlock(code) {
+    return [
+        '<div class="code-block">',
+        '    <button class="code-copy-button" type="button" aria-label="Copy code to clipboard">copy</button>',
+        `    <pre><code>${escapeHtml(code)}</code></pre>`,
+        "</div>",
+    ].join("\n");
+}
+
 function renderInline(text) {
     return escapeHtml(text)
         .replace(
@@ -105,7 +114,7 @@ export function renderMarkdown(markdown, options = {}) {
             }
 
             index += 1;
-            html.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
+            html.push(copyableCodeBlock(code.join("\n")));
             continue;
         }
 

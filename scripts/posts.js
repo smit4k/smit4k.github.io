@@ -1,4 +1,5 @@
 import { parseFrontmatter, stripFrontmatter } from "./frontmatter.js";
+import { installCodeBlockCopy } from "./code-copy.js";
 import { escapeHtml } from "./html.js";
 import { renderMarkdown } from "./markdown.js";
 import { postFiles } from "./post-files.js";
@@ -16,6 +17,8 @@ const allPostsCount = document.querySelector("#all-posts-count");
 const allPostsYears = document.querySelector("#all-posts-years");
 const postView = document.querySelector("#post-view");
 const homeView = document.querySelector("#home-view");
+
+installCodeBlockCopy(postView);
 
 function formatDate(date) {
     if (!date) {

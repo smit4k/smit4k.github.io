@@ -330,6 +330,49 @@ main > a {
         "Liberation Mono", "Courier New", monospace;
 }
 
+.code-block {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 1rem 3.75rem 1rem 1rem;
+    overflow-x: auto;
+    border: 1px solid #333;
+    background: #080808;
+}
+
+.code-copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: 1px solid #333;
+    background: #111;
+    color: #a8a8a8;
+    padding: 0.15rem 0.45rem;
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.code-copy-button:hover,
+.code-copy-button:focus-visible {
+    color: #f0f0f0;
+    border-color: #666;
+}
+
+.code-copy-button:focus-visible {
+    outline: 1px solid #7eb3f8;
+    outline-offset: 1px;
+}
+
+.code-copy-button[data-copied="true"] {
+    color: #b8f7c2;
+    border-color: #4d7a52;
+}
+
 .post-view img {
     margin-top: 1.5rem;
 }
