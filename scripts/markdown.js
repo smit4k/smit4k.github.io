@@ -152,28 +152,62 @@ export function renderMarkdown(markdown) {
         if (/^[-*]\s+/.test(trimmed)) {
             const items = [];
 
-            while (index < lines.length && /^[-*]\s+/.test(lines[index].trim())) {
-                items.push(lines[index].trim().replace(/^[-*]\s+/, ""));
-                index += 1;
+            while (index < lines.length) {
+                const current = lines[index];
+                const trimmedCurrent = current.trim();
+
+                if (/^[-*]\s+/.test(trimmedCurrent)) {
+                    items.push(trimmedCurrent.replace(/^[-*]\s+/, ""));
+                    index += 1;
+                    continue;
+                }
+
+                // Treat indented lines that are not nested lists as continuations
+                const contMatch = current.match(/^\s+(.+)$/);
+                if (contMatch && items.length) {
+                    const contText = contMatch[1].trim();
+                    if (!/^[-*]\s+/.test(contText) && !/^\d+\.\s+/.test(contText)) {
+                        items[items.length - 1] += " " + contText;
+                        index += 1;
+                        continue;
+                    }
+                }
+
+                break;
             }
 
-            html.push(
-                `<ul>${items.map((item) => `<li>${renderInline(item)}</li>`).join("")}</ul>`,
-            );
+            html.push(`<ul>${items.map((item) => `<li>${renderInline(item)}</li>`).join("")}</ul>`);
             continue;
         }
 
         if (/^\d+\.\s+/.test(trimmed)) {
             const items = [];
 
-            while (index < lines.length && /^\d+\.\s+/.test(lines[index].trim())) {
-                items.push(lines[index].trim().replace(/^\d+\.\s+/, ""));
-                index += 1;
+            while (index < lines.length) {
+                const current = lines[index];
+                const trimmedCurrent = current.trim();
+
+                if (/^\d+\.\s+/.test(trimmedCurrent)) {
+                    items.push(trimmedCurrent.replace(/^\d+\.\s+/, ""));
+                    index += 1;
+                    continue;
+                }
+
+                // Treat indented lines that are not nested lists as continuations
+                const contMatch = current.match(/^\s+(.+)$/);
+                if (contMatch && items.length) {
+                    const contText = contMatch[1].trim();
+                    if (!/^[-*]\s+/.test(contText) && !/^\d+\.\s+/.test(contText)) {
+                        items[items.length - 1] += " " + contText;
+                        index += 1;
+                        continue;
+                    }
+                }
+
+                break;
             }
 
-            html.push(
-                `<ol>${items.map((item) => `<li>${renderInline(item)}</li>`).join("")}</ol>`,
-            );
+            html.push(`<ol>${items.map((item) => `<li>${renderInline(item)}</li>`).join("")}</ol>`);
             continue;
         }
 
