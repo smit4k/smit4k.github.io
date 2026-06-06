@@ -85,7 +85,7 @@ export function renderMarkdown(markdown) {
         }
 
         if (trimmed.startsWith(":::")) {
-            const label = trimmed.replace(/^:::\w+\s*/, "").trim();
+            const [, type = "", label = ""] = trimmed.match(/^:::(\w+)?\s*(.*)$/) || [];
             const body = [];
             index += 1;
 
@@ -96,7 +96,7 @@ export function renderMarkdown(markdown) {
 
             index += 1;
             html.push(
-                `<blockquote>${label ? `<p><strong>${renderInline(label)}</strong></p>` : ""}${renderMarkdown(body.join("\n"))}</blockquote>`,
+                `<aside class="callout${type ? ` callout-${type}` : ""}">${label ? `<p class="callout-title">${renderInline(label)}</p>` : ""}<div class="callout-body">${renderMarkdown(body.join("\n"))}</div></aside>`,
             );
             continue;
         }

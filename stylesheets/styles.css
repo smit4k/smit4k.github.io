@@ -323,9 +323,33 @@ th {
     color: #e0e0e0;
 }
 
-blockquote {
-    margin: 1.5rem 0;
-    padding-left: 1rem;
+.callout {
+    margin: 1.75rem 0;
+    padding: 0.85rem 1rem 0.95rem;
+    border: 1px solid #2f3d52;
+    border-left-width: 3px;
+    background: #080b10;
+}
+
+.callout-title {
+    margin: 0;
+    color: #dce9fb;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.callout-body > :first-child {
+    margin-top: 0.5rem;
+}
+
+.callout-body > :last-child {
+    margin-bottom: 0;
+}
+
+.callout-info {
+    border-color: #2f4d77;
+    background: #07101b;
 }
 
 pre {
