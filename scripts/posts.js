@@ -23,7 +23,7 @@ function formatDate(date) {
     }
 
     const [year, month, day] = date.split("-");
-    return `${day}.${month}.${year}`;
+    return `${month}.${day}.${year}`;
 }
 
 function titleFromSlug(slug) {
