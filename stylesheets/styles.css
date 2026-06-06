@@ -55,7 +55,7 @@ p {
 
 a {
     color: #7eb3f8;
-    text-decoration-line: underline;
+    text-decoration: none;
 }
 
 ul,
@@ -285,7 +285,8 @@ main > a {
 }
 
 .post-view code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
         "Liberation Mono", "Courier New", monospace;
 }
 
@@ -328,10 +329,6 @@ img {
     max-width: 100%;
     height: auto;
     border: 1px solid;
-}
-
-a:visited {
-    color: #c084fc;
 }
 
 hr {
