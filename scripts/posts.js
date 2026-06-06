@@ -57,6 +57,47 @@ function markCurrentPost(slug) {
     });
 }
 
+function parseHashRoute(hash) {
+    if (hash === "#posts") {
+        return { view: "posts" };
+    }
+
+    const pathMatch = hash.match(/^#post\/([^/?#]+)(?:\/([^?#]+))?$/);
+    if (pathMatch) {
+        return {
+            view: "post",
+            slug: decodeURIComponent(pathMatch[1]),
+            section: pathMatch[2] ? decodeURIComponent(pathMatch[2]) : "",
+        };
+    }
+
+    const legacyMatch = hash.match(/^#post\/([^?]+)(?:\?section=(.+))?$/);
+    if (legacyMatch) {
+        return {
+            view: "post",
+            slug: decodeURIComponent(legacyMatch[1]),
+            section: legacyMatch[2] ? decodeURIComponent(legacyMatch[2]) : "",
+        };
+    }
+
+    return { view: "home" };
+}
+
+function scrollToPostSection(sectionId) {
+    if (!sectionId) {
+        window.scrollTo(0, 0);
+        return;
+    }
+
+    const target = document.getElementById(sectionId);
+    if (!target) {
+        window.scrollTo(0, 0);
+        return;
+    }
+
+    target.scrollIntoView({ block: "start" });
+}
+
 function showHomeView() {
     homeView.hidden = false;
     allPostsView.hidden = true;
@@ -191,11 +232,11 @@ function renderPost(post, markdown) {
             ${description ? `<p>${escapeHtml(description)}</p>` : ""}
         </header>
         <hr class="post-divider">
-        ${renderMarkdown(markdown)}
+        ${renderMarkdown(markdown, { postSlug: post.slug })}
     `;
 }
 
-async function showPost(slug) {
+async function showPost(slug, sectionId = "") {
     const post = posts.find((item) => item.slug === slug);
 
     if (!post) {
@@ -207,7 +248,6 @@ async function showPost(slug) {
     allPostsView.hidden = true;
     postView.hidden = false;
     postView.innerHTML = `<p>loading...</p>`;
-    window.scrollTo(0, 0);
 
     const response = await fetch(`posts/${post.file}`);
     if (!response.ok) {
@@ -218,17 +258,18 @@ async function showPost(slug) {
 
     renderPost(post, await response.text());
     markCurrentPost(slug);
+    scrollToPostSection(sectionId);
 }
 
 function syncPostFromHash() {
-    const slug = location.hash.match(/^#post\/(.+)$/)?.[1];
+    const route = parseHashRoute(location.hash);
 
-    if (slug) {
-        showPost(slug);
+    if (route.view === "post") {
+        showPost(route.slug, route.section);
         return;
     }
 
-    if (location.hash === "#posts") {
+    if (route.view === "posts") {
         showAllPostsView();
         return;
     }

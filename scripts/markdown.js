@@ -1,6 +1,21 @@
 import { stripFrontmatter } from "./frontmatter.js";
 import { escapeHtml } from "./html.js";
 
+function slugifyHeading(text) {
+    const slug = text
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim()
+        .replace(/[`*_~[\]!]/g, "")
+        .replace(/\]\([^)]+\)/g, "")
+        .replace(/&[a-z0-9#]+;/gi, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+    return slug || "section";
+}
+
 function postAssetPath(path) {
     if (/^(https?:|mailto:|#|\/)/.test(path)) {
         return path;
@@ -25,10 +40,20 @@ function renderInline(text) {
         .replace(/~~([^~]+)~~/g, "<s>$1</s>");
 }
 
-export function renderMarkdown(markdown) {
+export function renderMarkdown(markdown, options = {}) {
     const lines = stripFrontmatter(markdown).replaceAll("\r\n", "\n").split("\n");
     const html = [];
+    const usedHeadingSlugs = new Map();
     let index = 0;
+    const postSlug = options.postSlug || "";
+
+    function uniqueHeadingSlug(text) {
+        const baseSlug = slugifyHeading(text);
+        const count = usedHeadingSlugs.get(baseSlug) || 0;
+
+        usedHeadingSlugs.set(baseSlug, count + 1);
+        return count === 0 ? baseSlug : `${baseSlug}-${count + 1}`;
+    }
 
     function parseTableRow(row) {
         return row
@@ -96,7 +121,7 @@ export function renderMarkdown(markdown) {
 
             index += 1;
             html.push(
-                `<aside class="callout${type ? ` callout-${type}` : ""}">${label ? `<p class="callout-title">${renderInline(label)}</p>` : ""}<div class="callout-body">${renderMarkdown(body.join("\n"))}</div></aside>`,
+                `<aside class="callout${type ? ` callout-${type}` : ""}">${label ? `<p class="callout-title">${renderInline(label)}</p>` : ""}<div class="callout-body">${renderMarkdown(body.join("\n"), options)}</div></aside>`,
             );
             continue;
         }
@@ -104,7 +129,17 @@ export function renderMarkdown(markdown) {
         const heading = trimmed.match(/^(#{1,6})\s+(.+)$/);
         if (heading) {
             const level = Math.min(heading[1].length, 4);
-            html.push(`<h${level}>${renderInline(heading[2])}</h${level}>`);
+            const content = renderInline(heading[2]);
+            const id = uniqueHeadingSlug(heading[2]);
+            const href = postSlug
+                ? `#post/${encodeURIComponent(postSlug)}/${encodeURIComponent(id)}`
+                : `#${id}`;
+            const anchor =
+                level >= 2 && level <= 3
+                    ? `<a class="heading-anchor" href="${href}" aria-label="Link to section: ${escapeHtml(heading[2])}" title="Link to section: ${escapeHtml(heading[2])}">¶</a>`
+                    : "";
+
+            html.push(`<h${level} id="${id}">${content}${anchor}</h${level}>`);
             index += 1;
             continue;
         }

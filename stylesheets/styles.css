@@ -280,6 +280,36 @@ main > a {
     margin-top: 2rem;
 }
 
+.post-view h2[id],
+.post-view h3[id] {
+    scroll-margin-top: 1rem;
+}
+
+.heading-anchor {
+    margin-left: 0.35rem;
+    color: #777;
+    font-weight: 400;
+    text-decoration: none;
+    opacity: 0;
+    transition:
+        color 0.2s,
+        opacity 0.2s;
+}
+
+.post-view h2[id]:hover .heading-anchor,
+.post-view h3[id]:hover .heading-anchor,
+.post-view h2[id]:focus-within .heading-anchor,
+.post-view h3[id]:focus-within .heading-anchor {
+    opacity: 1;
+}
+
+.heading-anchor:hover,
+.heading-anchor:focus-visible {
+    color: #ccc;
+    opacity: 1;
+    text-decoration: none;
+}
+
 .post-view p {
     font-size: 1.125rem;
     line-height: 1.2;
