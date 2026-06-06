@@ -1,30 +1,75 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>smit</title>
+        <meta
+            name="description"
+            content="Smit: software, robotics, Linux, and current setup."
+        />
+        <link rel="stylesheet" href="stylesheets/styles.css" />
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>smit</title>
-    <meta name="description" content="Smit: software, robotics, Linux, and current setup.">
-    <link rel="stylesheet" href="stylesheets/styles.css">
-</head>
+    <body>
+        <main id="home-view">
+            <div class="about">
+                <h2>about</h2>
+                <p>
+                    I'm Smit, a university student from Michigan. I enjoy coding
+                    in Rust and minecraft modding in my freetime.
+                </p>
+            </div>
+            <div class="setup">
+                <h2>my setup</h2>
+                <dl class="setup-list">
+                    <dt>ide</dt>
+                    <dd>Zed</dd>
 
-<body>
-    <main class="terminal-wrap" aria-label="Smit profile">
-        <pre class="terminal" aria-label="Terminal profile">┌─[ smit ]─────────────────────────────┐
-│ role     software / robotics / linux │
-│ web      <a href="https://smit.codes">smit.codes</a>                  │
-│ github   <a href="https://github.com/smit4k">github.com/smit4k</a>           │
-│ email    <a href="mailto:smit@smit.codes">smit@smit.codes</a>             │
-│ status   learning by building        │
-├─ edc / setup ────────────────────────┤
-│ laptop   MacBook Air M2              │
-│ editor   Neovim                      │
-│ term     Ghostty                     │
-│ font     JetBrains Mono              │
-│ ai       Codex                       │
-└──────────────────────────────────────┘</pre>
-    </main>
-</body>
+                    <dt>font</dt>
+                    <dd>JetBrainsMono Nerd Font</dd>
 
+                    <dt>terminal</dt>
+                    <dd>Ghostty</dd>
+
+                    <dt>laptop</dt>
+                    <dd>MacBook Air M2</dd>
+
+                    <dt>agent</dt>
+                    <dd>Codex</dd>
+                </dl>
+            </div>
+            <div class="posts">
+                <div class="posts-heading">
+                    <h2>posts</h2>
+                    <a href="#posts">view all</a>
+                </div>
+                <ul id="post-list" class="post-list"></ul>
+            </div>
+
+            <hr />
+            <a href="https://github.com/smit4k/">github</a> |
+            <a href="mailto:smit@smit.codes">email</a>
+        </main>
+        <section id="all-posts-view" class="all-posts-view" hidden>
+            <nav class="breadcrumbs" aria-label="breadcrumbs">
+                <a href="#">home</a>
+                <span aria-hidden="true">/</span>
+                <a href="#posts">posts</a>
+            </nav>
+            <header class="all-posts-header">
+                <h1>posts</h1>
+                <p>
+                    <span id="all-posts-count">0 entries</span>
+                    <span aria-hidden="true"> · </span>
+                    <span id="all-posts-years">0 years</span>
+                    <span aria-hidden="true"> · </span>
+                    <a href="rss.xml">rss</a>
+                </p>
+            </header>
+            <ul id="all-post-list" class="all-post-list"></ul>
+        </section>
+        <article id="post-view" class="post-view" hidden></article>
+        <script type="module" src="scripts/posts.js"></script>
+    </body>
 </html>
