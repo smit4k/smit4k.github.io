@@ -58,6 +58,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 ul,
 ol {
     margin: 1rem 0 0;
