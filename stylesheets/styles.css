@@ -121,6 +121,12 @@ main > a {
     font-size: 1.125rem;
 }
 
+.posts-heading p {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+}
+
 .post-list {
     margin-top: 1rem;
     padding-left: 0;
