@@ -131,13 +131,11 @@ body {
     }
 
     .home-banner-frame {
-        width: 100%;
-        max-height: 24rem;
-        aspect-ratio: 2 / 3;
+        display: none;
     }
 
     .home-content {
-        margin-top: 2rem;
+        margin-top: 0;
     }
 }
 

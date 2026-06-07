@@ -19,6 +19,8 @@ const allPostsYears = document.querySelector("#all-posts-years");
 const postView = document.querySelector("#post-view");
 const homeView = document.querySelector("#home-view");
 const notFoundView = document.querySelector("#not-found-view");
+const homeBannerFrame = document.querySelector("#home-banner-frame");
+const desktopBannerMedia = window.matchMedia("(min-width: 48.001rem)");
 
 installCodeBlockCopy(postView);
 
@@ -114,6 +116,28 @@ function showHomeView() {
     notFoundView.hidden = true;
     postView.innerHTML = "";
     clearCurrentPostLinks();
+}
+
+function syncHomeBanner() {
+    if (!homeBannerFrame) {
+        return;
+    }
+
+    if (!desktopBannerMedia.matches) {
+        homeBannerFrame.replaceChildren();
+        return;
+    }
+
+    if (homeBannerFrame.querySelector(".home-banner")) {
+        return;
+    }
+
+    const banner = document.createElement("img");
+    banner.className = "home-banner";
+    banner.src = homeBannerFrame.dataset.bannerSrc || "";
+    banner.alt = "";
+    banner.setAttribute("aria-hidden", "true");
+    homeBannerFrame.replaceChildren(banner);
 }
 
 function showAllPostsView() {
@@ -305,6 +329,7 @@ function syncPostFromHash() {
 }
 
 async function initPosts() {
+    syncHomeBanner();
     await loadPostMetadata();
     renderPostList();
     renderAllPostList();
@@ -317,3 +342,4 @@ async function initPosts() {
 
 initPosts();
 window.addEventListener("hashchange", syncPostFromHash);
+desktopBannerMedia.addEventListener("change", syncHomeBanner);
