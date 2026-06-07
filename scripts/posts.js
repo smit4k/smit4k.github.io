@@ -1,6 +1,7 @@
 import { parseFrontmatter, stripFrontmatter } from "./frontmatter.js";
 import { installCodeBlockCopy } from "./code-copy.js";
 import { escapeHtml } from "./html.js";
+import { renderNotFound } from "./not-found.js";
 import { renderMarkdown } from "./markdown.js";
 import { postFiles } from "./post-files.js";
 import { estimateReadTime } from "./read-time.js";
@@ -17,6 +18,7 @@ const allPostsCount = document.querySelector("#all-posts-count");
 const allPostsYears = document.querySelector("#all-posts-years");
 const postView = document.querySelector("#post-view");
 const homeView = document.querySelector("#home-view");
+const notFoundView = document.querySelector("#not-found-view");
 
 installCodeBlockCopy(postView);
 
@@ -61,6 +63,10 @@ function markCurrentPost(slug) {
 }
 
 function parseHashRoute(hash) {
+    if (!hash) {
+        return { view: "home" };
+    }
+
     if (hash === "#posts") {
         return { view: "posts" };
     }
@@ -83,7 +89,7 @@ function parseHashRoute(hash) {
         };
     }
 
-    return { view: "home" };
+    return { view: "not-found" };
 }
 
 function scrollToPostSection(sectionId) {
@@ -105,6 +111,7 @@ function showHomeView() {
     homeView.hidden = false;
     allPostsView.hidden = true;
     postView.hidden = true;
+    notFoundView.hidden = true;
     postView.innerHTML = "";
     clearCurrentPostLinks();
 }
@@ -112,8 +119,19 @@ function showHomeView() {
 function showAllPostsView() {
     homeView.hidden = true;
     postView.hidden = true;
+    notFoundView.hidden = true;
     postView.innerHTML = "";
     allPostsView.hidden = false;
+    window.scrollTo(0, 0);
+    clearCurrentPostLinks();
+}
+
+function showNotFoundView() {
+    homeView.hidden = true;
+    allPostsView.hidden = true;
+    postView.hidden = true;
+    notFoundView.hidden = false;
+    postView.innerHTML = "";
     window.scrollTo(0, 0);
     clearCurrentPostLinks();
 }
@@ -243,12 +261,13 @@ async function showPost(slug, sectionId = "") {
     const post = posts.find((item) => item.slug === slug);
 
     if (!post) {
-        showHomeView();
+        showNotFoundView();
         return;
     }
 
     homeView.hidden = true;
     allPostsView.hidden = true;
+    notFoundView.hidden = true;
     postView.hidden = false;
     postView.innerHTML = `<p>loading...</p>`;
 
@@ -277,6 +296,11 @@ function syncPostFromHash() {
         return;
     }
 
+    if (route.view === "not-found") {
+        showNotFoundView();
+        return;
+    }
+
     showHomeView();
 }
 
@@ -284,6 +308,10 @@ async function initPosts() {
     await loadPostMetadata();
     renderPostList();
     renderAllPostList();
+    notFoundView.innerHTML = renderNotFound({
+        homeHref: "#",
+        postsHref: "#posts",
+    });
     syncPostFromHash();
 }
 
