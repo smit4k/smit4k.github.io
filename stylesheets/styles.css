@@ -4,9 +4,67 @@
     box-sizing: border-box;
 }
 
+:root {
+    color-scheme: dark;
+    --color-bg: #000;
+    --color-text: #d0d0d0;
+    --color-link: #7eb3f8;
+    --color-muted: #8f8f8f;
+    --color-strong: #e0e0e0;
+    --color-meta: #a8a8a8;
+    --color-current: #c084fc;
+    --color-border: #333;
+    --color-heading-anchor: #777;
+    --color-heading-anchor-hover: #ccc;
+    --color-code-bg: #080808;
+    --color-button-bg: #111;
+    --color-button-hover: #f0f0f0;
+    --color-button-hover-border: #666;
+    --color-focus: #7eb3f8;
+    --color-copied: #b8f7c2;
+    --color-copied-border: #4d7a52;
+    --color-callout-border: #2f3d52;
+    --color-callout-bg: #080b10;
+    --color-callout-title: #dce9fb;
+    --color-info-border: #2f4d77;
+    --color-info-bg: #07101b;
+    --color-selection-bg: #7eb3f8;
+    --color-selection-text: #000;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        --color-bg: #fff;
+        --color-text: #000;
+        --color-link: #1f6fba;
+        --color-muted: #555;
+        --color-strong: #000;
+        --color-meta: #555;
+        --color-current: #c084fc;
+        --color-border: #d0d0d0;
+        --color-heading-anchor: #777;
+        --color-heading-anchor-hover: #555;
+        --color-code-bg: #f7f7f7;
+        --color-button-bg: #fff;
+        --color-button-hover: #000;
+        --color-button-hover-border: #999;
+        --color-focus: #7eb3f8;
+        --color-copied: #2f6f3a;
+        --color-copied-border: #93c99a;
+        --color-callout-border: #cad8eb;
+        --color-callout-bg: #fff;
+        --color-callout-title: #244061;
+        --color-info-border: #b7cce8;
+        --color-info-bg: #fff;
+        --color-selection-bg: #7eb3f8;
+        --color-selection-text: #000;
+    }
+}
+
 html {
-    background: #000;
-    color: #d0d0d0;
+    background: var(--color-bg);
+    color: var(--color-text);
     font-family: serif;
     line-height: 1.2;
 }
@@ -54,7 +112,7 @@ p {
 }
 
 a {
-    color: #7eb3f8;
+    color: var(--color-link);
     text-decoration: none;
 }
 
@@ -91,7 +149,7 @@ li {
 
 .setup-list dt,
 .current-list dt {
-    color: #8f8f8f;
+    color: var(--color-muted);
 }
 
 .setup-list dt::after,
@@ -102,7 +160,7 @@ li {
 .setup-list dd,
 .current-list dd {
     margin: 0;
-    color: #e0e0e0;
+    color: var(--color-strong);
 }
 
 main > a {
@@ -143,19 +201,19 @@ main > a {
 
 .post-list p {
     margin-top: 0.15rem;
-    color: #8f8f8f;
+    color: var(--color-muted);
     font-size: 1rem;
     line-height: 1.25;
 }
 
 .post-list time,
 .post-header time {
-    color: #8f8f8f;
+    color: var(--color-muted);
     font-variant-numeric: tabular-nums;
 }
 
 .post-list a[aria-current] {
-    color: #c084fc;
+    color: var(--color-current);
 }
 
 .breadcrumbs {
@@ -168,7 +226,7 @@ main > a {
 }
 
 .breadcrumbs span {
-    color: #8f8f8f;
+    color: var(--color-muted);
 }
 
 .breadcrumbs a {
@@ -203,7 +261,7 @@ main > a {
 }
 
 .muted {
-    color: #8f8f8f;
+    color: var(--color-muted);
 }
 
 .all-posts-header {
@@ -265,12 +323,12 @@ main > a {
 }
 
 .post-year-group time {
-    color: #d0d0d0;
+    color: var(--color-text);
     font-variant-numeric: tabular-nums;
 }
 
 .post-year-group a[aria-current] {
-    color: #c084fc;
+    color: var(--color-current);
 }
 
 .post-view {
@@ -282,17 +340,17 @@ main > a {
 }
 
 .post-header p {
-    color: #a8a8a8;
+    color: var(--color-meta);
 }
 
 .post-header .post-meta {
-    color: #8f8f8f;
+    color: var(--color-muted);
 }
 
 .post-divider {
     margin: 1.5rem 0 2rem;
     border: 0;
-    border-top: 1px solid #333;
+    border-top: 1px solid var(--color-border);
 }
 
 .post-back {
@@ -314,7 +372,7 @@ main > a {
 
 .heading-anchor {
     margin-left: 0.35rem;
-    color: #777;
+    color: var(--color-heading-anchor);
     font-weight: 400;
     text-decoration: none;
     opacity: 0;
@@ -332,7 +390,7 @@ main > a {
 
 .heading-anchor:hover,
 .heading-anchor:focus-visible {
-    color: #ccc;
+    color: var(--color-heading-anchor-hover);
     opacity: 1;
     text-decoration: none;
 }
@@ -366,17 +424,17 @@ main > a {
     margin: 0;
     padding: 1rem 3.75rem 1rem 1rem;
     overflow-x: auto;
-    border: 1px solid #333;
-    background: #080808;
+    border: 1px solid var(--color-border);
+    background: var(--color-code-bg);
 }
 
 .code-copy-button {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    border: 1px solid #333;
-    background: #111;
-    color: #a8a8a8;
+    border: 1px solid var(--color-border);
+    background: var(--color-button-bg);
+    color: var(--color-meta);
     padding: 0.15rem 0.45rem;
     font: inherit;
     font-size: 0.85rem;
@@ -386,18 +444,18 @@ main > a {
 
 .code-copy-button:hover,
 .code-copy-button:focus-visible {
-    color: #f0f0f0;
-    border-color: #666;
+    color: var(--color-button-hover);
+    border-color: var(--color-button-hover-border);
 }
 
 .code-copy-button:focus-visible {
-    outline: 1px solid #7eb3f8;
+    outline: 1px solid var(--color-focus);
     outline-offset: 1px;
 }
 
 .code-copy-button[data-copied="true"] {
-    color: #b8f7c2;
-    border-color: #4d7a52;
+    color: var(--color-copied);
+    border-color: var(--color-copied-border);
 }
 
 .post-view img {
@@ -414,26 +472,26 @@ table {
 th,
 td {
     padding: 0.35rem 0.5rem;
-    border: 1px solid #333;
+    border: 1px solid var(--color-border);
     text-align: left;
     vertical-align: top;
 }
 
 th {
-    color: #e0e0e0;
+    color: var(--color-strong);
 }
 
 .callout {
     margin: 1.75rem 0;
     padding: 0.85rem 1rem 0.95rem;
-    border: 1px solid #2f3d52;
+    border: 1px solid var(--color-callout-border);
     border-left-width: 3px;
-    background: #080b10;
+    background: var(--color-callout-bg);
 }
 
 .callout-title {
     margin: 0;
-    color: #dce9fb;
+    color: var(--color-callout-title);
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -448,8 +506,8 @@ th {
 }
 
 .callout-info {
-    border-color: #2f4d77;
-    background: #07101b;
+    border-color: var(--color-info-border);
+    background: var(--color-info-bg);
 }
 
 pre {
@@ -470,6 +528,6 @@ hr {
 }
 
 ::selection {
-    background: #7eb3f8;
-    color: #000;
+    background: var(--color-selection-bg);
+    color: var(--color-selection-text);
 }
