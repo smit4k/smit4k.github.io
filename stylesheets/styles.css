@@ -1,3 +1,19 @@
+@font-face {
+    font-family: "Source Serif";
+    src: url("/static/SourceSerif4-Regular.ttf.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Source Serif";
+    src: url("/static/SourceSerif4-Bold.ttf.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -65,7 +81,7 @@
 html {
     background: var(--color-bg);
     color: var(--color-text);
-    font-family: serif;
+    font-family: "Source Serif", serif;
     line-height: 1.2;
 }
 
@@ -144,28 +160,23 @@ h2,
 h3,
 h4 {
     margin: 0;
-    line-height: 1.2;
     font-weight: bold;
 }
 
 h1 {
     margin-top: 3rem;
-    font-size: 1.8rem;
 }
 
 h2 {
     margin-top: 2.5rem;
-    font-size: 1.5rem;
 }
 
 h3 {
     margin-top: 2rem;
-    font-size: 1.25rem;
 }
 
 h4 {
     margin-top: 1.5rem;
-    font-size: 1.1rem;
 }
 
 p {
@@ -199,6 +210,7 @@ ol {
 
 li {
     margin-top: 0.25rem;
+    font-size: 1.125rem;
 }
 
 .setup-list,
@@ -334,14 +346,11 @@ main > a {
 
 .all-posts-header h1 {
     margin-top: 0;
-    font-size: 1.8rem;
-    line-height: 1.2;
 }
 
 .all-posts-header p {
     margin-top: 0.25rem;
     font-size: 1.125rem;
-    line-height: 1.2;
 }
 
 .all-posts-header a {
@@ -459,17 +468,8 @@ main > a {
     text-decoration: none;
 }
 
-.post-view p {
-    font-size: 1.125rem;
-    line-height: 1.2;
-}
-
+.post-view p,
 .post-view li {
-    font-size: 1.125rem;
-    line-height: 1.2;
-}
-
-.post-view a {
     font-size: 1.125rem;
 }
 
