@@ -76,43 +76,12 @@ body {
 }
 
 #home-view {
-    width: min(100%, 61rem);
+    width: min(100%, 36rem);
     margin: 0 auto;
 }
 
 #home-view:not([hidden]) {
-    display: grid;
-    grid-template-columns: minmax(0, 22rem) minmax(1.5rem, 3rem) minmax(
-            0,
-            36rem
-        );
-    align-items: stretch;
-}
-
-.home-banner-frame {
-    grid-column: 1;
-    justify-self: end;
-    position: relative;
-    width: 100%;
-    min-height: 0;
-    overflow: hidden;
-    border: 1px solid;
-}
-
-.home-banner {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
     display: block;
-    border: 0;
-    object-fit: cover;
-    object-position: center;
-}
-
-.home-content {
-    grid-column: 3;
 }
 
 .home-content > :first-child h2 {
@@ -129,12 +98,7 @@ body {
 
 @media (max-width: 48rem) {
     #home-view:not([hidden]) {
-        display: block;
         max-width: 36rem;
-    }
-
-    .home-banner-frame {
-        display: none;
     }
 
     .home-content {
