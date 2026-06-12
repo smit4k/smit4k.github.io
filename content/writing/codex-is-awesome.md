@@ -6,7 +6,7 @@ links: []
 description: "My experience with OpenAI's coding agent, Codex"
 ---
 
-![codex cli screenshot](imgs/codexss.png)
+![codex cli screenshot](/imgs/codexss.png)
 
 ## Introduction
 
@@ -76,9 +76,14 @@ instructions for specific tasks instead of me redundantly typing in the same
 instructions every time. The extra context helps it become a "master" in the
 task it's doing.
 
-:::info Want to find skills?
+<aside class="callout callout-info">
+<p class="callout-title">Want to find skills?</p>
+<div class="callout-body">
+
 You can find a whole list of skills here: [skills.sh](https://skills.sh)
-:::
+
+</div>
+</aside>
 
 **MCP servers** are also useful because they let Codex access external tools and
 data sources. They let it pull data from other sources, not just the codebase,

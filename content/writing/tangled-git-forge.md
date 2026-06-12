@@ -15,9 +15,14 @@ description: My first impressions of tangled.org, the decentralized git forge
 
 Tangled is still **very new**, and every contribution counts, if you're interested by the end of reading this article, I suggest you look into contributing to Tangled. I've [contributed to tangled](https://tangled.org/tangled.org/core/pulls?q=author%3Asmit.codes) a little bit myself.
 
-:::info More about Tangled
+<aside class="callout callout-info">
+<p class="callout-title">More about Tangled</p>
+<div class="callout-body">
+
 If you would like to learn more about Tangled, you can check out their own blog post [here](https://blog.tangled.org/intro/)
-:::
+
+</div>
+</aside>
 
 
 ## Why Tangled Caught My Attention

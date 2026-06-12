@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% import "macros/breadcrumbs.html" as breadcrumbs %}
+{% block content %}
+<main class="not-found">
+    {{ breadcrumbs::render(current_label="404") }}
+
+    <h1>404</h1>
+    <p>the page you were looking for does not exist.</p>
+
+    <div class="not-found-links">
+        <a href="{{ get_url(path='/') }}">go home</a>
+        <a href="{{ get_url(path='@/writing/_index.md') }}">browse writing</a>
+    </div>
+</main>
+{% endblock content %}

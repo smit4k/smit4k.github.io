@@ -1,0 +1,13 @@
+{% macro render(page) %}
+<p class="post-meta">
+    {% if page.reading_time %}
+    <span>{{ page.reading_time }} min read</span>
+    {% endif %}
+    {% if page.reading_time and page.date %}
+    <span aria-hidden="true"> · </span>
+    {% endif %}
+    {% if page.date %}
+    <time datetime="{{ page.date }}">{{ page.date | date(format="%m.%d.%Y") }}</time>
+    {% endif %}
+</p>
+{% endmacro %}

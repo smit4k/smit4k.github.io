@@ -1,0 +1,17 @@
+{% macro render(parent_label="", parent_url="", current_label="", current_url="") %}
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+    <a href="{{ get_url(path='/') }}">home</a>
+    {% if parent_label %}
+    <span aria-hidden="true">/</span>
+    <a href="{{ parent_url | safe }}">{{ parent_label }}</a>
+    {% endif %}
+    {% if current_label %}
+    <span aria-hidden="true">/</span>
+    {% if current_url %}
+    <a href="{{ current_url | safe }}">{{ current_label }}</a>
+    {% else %}
+    <span>{{ current_label }}</span>
+    {% endif %}
+    {% endif %}
+</nav>
+{% endmacro %}

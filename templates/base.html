@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Smit's Blog</title>
+        <link rel="stylesheet" href="{{ get_url(path='site.css') }}" />
+        <script type="module" src="{{ get_url(path='code-copy.js') }}"></script>
+        <script type="module" src="{{ get_url(path='heading-links.js') }}"></script>
+    </head>
+
+    <body>
+        <section class="section">
+            <div class="container">
+                {% block content %} {% endblock content %}
+            </div>
+        </section>
+    </body>
+</html>

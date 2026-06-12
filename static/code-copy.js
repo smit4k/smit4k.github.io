@@ -23,7 +23,27 @@ async function copyText(text) {
     textarea.remove();
 }
 
-export function installCodeBlockCopy(container) {
+function wrapCodeBlocks(container) {
+    container.querySelectorAll("pre").forEach((pre) => {
+        if (pre.closest(".code-block") || !pre.querySelector("code")) {
+            return;
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-block";
+
+        const button = document.createElement("button");
+        button.className = "code-copy-button";
+        button.type = "button";
+        button.setAttribute("aria-label", "Copy code to clipboard");
+        button.textContent = defaultLabel;
+
+        pre.before(wrapper);
+        wrapper.append(button, pre);
+    });
+}
+
+function installCodeBlockCopy(container) {
     const timeouts = new WeakMap();
 
     const onClick = async (event) => {
@@ -58,8 +78,7 @@ export function installCodeBlockCopy(container) {
     };
 
     container.addEventListener("click", onClick);
-
-    return () => {
-        container.removeEventListener("click", onClick);
-    };
 }
+
+wrapCodeBlocks(document);
+installCodeBlockCopy(document);

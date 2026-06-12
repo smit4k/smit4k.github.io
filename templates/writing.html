@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% import "macros/breadcrumbs.html" as breadcrumbs %}
+{% block content %} {{ breadcrumbs::render(current_label=section.title | lower,
+current_url=section.permalink) }}
+
+<header class="all-posts-header">
+    <h1>{{ section.title }}</h1>
+    <p>
+        <span>{{ section.pages | length }} entries</span>
+        <span aria-hidden="true"> · </span>
+        <a href="{{ get_url(path='rss.xml') }}">rss</a>
+    </p>
+</header>
+
+{% set posts_by_year = section.pages | group_by(attribute="year") %}
+<ul class="all-post-list">
+    {% for year, posts in posts_by_year %}
+    <li class="post-year-group">
+        <h3>{{ year }}</h3>
+        <ul>
+            {% for page in posts %}
+            <li>
+                <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+                <time datetime="{{ page.date }}"
+                    >{{ page.date | date(format="%m.%d.%Y") }}</time
+                >
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "macros/breadcrumbs.html" as breadcrumbs %}
+{% import "macros/post_meta.html" as post_meta %}
+
+{% block content %}
+{{ breadcrumbs::render(
+    parent_label="writing",
+    parent_url=get_url(path='@/writing/_index.md'),
+    current_label=page.title,
+    current_url=page.permalink
+) }}
+
+<header class="post-header">
+    <h1>{{ page.title }}</h1>
+    {{ post_meta::render(page=page) }}
+    {% if page.description %}
+    <p>{{ page.description }}</p>
+    {% endif %}
+</header>
+<hr class="post-divider" />
+<article class="post-content">
+{{ page.content | safe }}
+</article>
+{% endblock content %}
