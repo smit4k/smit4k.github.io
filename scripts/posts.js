@@ -69,7 +69,7 @@ function parseHashRoute(hash) {
         return { view: "home" };
     }
 
-    if (hash === "#posts") {
+    if (hash === "#writing") {
         return { view: "posts" };
     }
 
@@ -263,7 +263,7 @@ function renderPost(post, markdown) {
         <nav class="breadcrumbs" aria-label="breadcrumbs">
             <a href="#">home</a>
             <span aria-hidden="true">/</span>
-            <a href="#posts">posts</a>
+            <a href="#writing">writing</a>
             <span aria-hidden="true">/</span>
             <a href="#post/${post.slug}">${escapeHtml(title)}</a>
         </nav>
@@ -335,7 +335,7 @@ async function initPosts() {
     renderAllPostList();
     notFoundView.innerHTML = renderNotFound({
         homeHref: "#",
-        postsHref: "#posts",
+        postsHref: "#writing",
     });
     syncPostFromHash();
 }

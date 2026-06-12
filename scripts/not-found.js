@@ -13,7 +13,7 @@ export function renderNotFound({ homeHref, postsHref }) {
 
         <div class="not-found-links">
             <a href="${escapeHtml(homeHref)}">go home</a>
-            <a href="${escapeHtml(postsHref)}">browse posts</a>
+            <a href="${escapeHtml(postsHref)}">browse writing</a>
         </div>
     `;
 }
