@@ -1,5 +1,5 @@
 const headings = document.querySelectorAll(
-    ".post-content h2[id], .post-content h3[id]",
+    ".post-content h2[id], .post-content h3[id], .post-content h4[id]",
 );
 
 headings.forEach((heading) => {
@@ -14,7 +14,7 @@ headings.forEach((heading) => {
     anchor.href = `#${heading.id}`;
     anchor.setAttribute("aria-label", `Link to section: ${label}`);
     anchor.title = `Link to section: ${label}`;
-    anchor.textContent = "¶";
+    anchor.textContent = "#";
 
     heading.append(anchor);
 });
