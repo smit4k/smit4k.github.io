@@ -4,6 +4,30 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "Redaction 10";
+    src: url("/Redaction_10-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Redaction 10";
+    src: url("/Redaction_10-Italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Redaction 10";
+    src: url("/Redaction_10-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     color-scheme: dark;
     --color-bg: #000;
@@ -80,6 +104,7 @@ html {
     background: var(--color-bg);
     color: var(--color-text);
     font-family:
+        "Redaction 10",
         system-ui,
         -apple-system,
         BlinkMacSystemFont,
