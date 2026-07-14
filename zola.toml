@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://smit.codes"
+base_url = "https://smitp.cc"
 title = "Smit's Blog"
 description = "Writing about software development, tools, and projects."
 author = "Smit Patil"
