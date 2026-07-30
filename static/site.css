@@ -160,10 +160,14 @@ p {
 a {
     color: var(--color-link);
     text-decoration: none;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.14em;
+    transition: color 140ms ease;
 }
 
 a:hover {
     text-decoration: underline;
+    text-decoration-thickness: 0.08em;
 }
 
 a:focus-visible {
@@ -542,6 +546,21 @@ ol + hr {
 .post-list time {
     color: var(--color-muted);
     font-variant-numeric: tabular-nums;
+}
+
+.post-list a,
+.post-year-group a {
+    transition:
+        color 140ms ease,
+        opacity 140ms ease;
+}
+
+.post-list a:hover,
+.post-year-group a:hover,
+.breadcrumbs a:hover,
+.all-posts-header a:hover,
+.section-heading a:hover {
+    color: var(--color-strong);
 }
 
 @media (max-width: 36rem) {
