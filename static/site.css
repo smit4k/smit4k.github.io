@@ -615,21 +615,11 @@ ol + hr {
     }
 
     .home-banner-frame {
-        width: 100%;
-        display: block;
-        transform: none;
-    }
-
-    .home-banner {
-        width: 100%;
-        max-width: none;
-        max-height: 24rem;
-        aspect-ratio: 245 / 328;
-        object-fit: cover;
+        display: none;
     }
 
     .home-content {
-        margin-top: 2rem;
+        margin-top: 0;
     }
 }
 
