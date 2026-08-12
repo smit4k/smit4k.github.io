@@ -603,7 +603,7 @@ ol + hr {
     color: var(--color-strong);
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 40rem) {
     .container-home {
         width: min(100%, 36rem);
     }
