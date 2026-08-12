@@ -3,7 +3,7 @@ title: Liquid Glass is Bad, but Bearable
 date: 2026-08-11
 tags:
 links: []
-description: An overview of the design philosophy and development process behind LQF, my custom configuration language, including the reasoning, structure, and syntax decisions that shape how it works.
+description: My thoughts behind Apple's Liquid Glass design language after using it for a year.
 ---
 Yes, I know I'm about a year late to the Liquid Glass conversation, but I needed to wait so I could live with Apple's new design language for months before making my verdict.
 
