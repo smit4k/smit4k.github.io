@@ -10,7 +10,7 @@
 
     <body>
         <section class="section">
-            <div class="container">
+            <div class="container{% block container_class %}{% endblock container_class %}">
                 {% block content %} {% endblock content %}
             </div>
         </section>
