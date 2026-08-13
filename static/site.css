@@ -28,6 +28,14 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Merriweather";
+    src: url("/merriweather-v33-latin-700.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     color-scheme: dark;
     --color-bg: #000;
@@ -164,11 +172,12 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     margin: 0;
     color: var(--color-strong);
     font-weight: bold;
-    font-family: "Instrument Serif", Georgia, serif;
+    font-family: "Merriweather", Georgia, serif;
 }
 
 body {
