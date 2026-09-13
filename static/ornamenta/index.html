@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Ornamenta · Smit Patil</title>
+<meta name="description" content="Test ornamental fonts and compose repeating patterns. Load a local font, type glyphs, and adjust the grid and symmetry.">
+<style>
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../source-serif-4-latin-normal.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Typography and theme values shared with smit4k.github.io/static/site.css. */
+:root {
+  color-scheme: dark;
+  --paper: #000; --ink: #d0d0d0; --soft: #8f8f8f;
+  --line: #333; --strong: #e0e0e0; --link: #7eb3f8;
+  --field: #080808; --button: #111; --hover: #f0f0f0;
+  --hover-border: #666; --focus: #7eb3f8;
+  --serif: "Source Serif 4", Georgia, serif;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --paper: #fff; --ink: #000; --soft: #555;
+    --line: #d0d0d0; --strong: #000; --link: #1f6fba;
+    --field: #f7f7f7; --button: #fff; --hover: #000;
+    --hover-border: #999;
+  }
+}
+::selection { background: #7eb3f8; color: #000; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.45 var(--serif); -webkit-font-smoothing: antialiased; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+button, input, textarea { border-radius: 0; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 1px solid var(--focus); outline-offset: 2px; }
+.wrap { max-width: 1232px; margin: auto; padding: 48px 16px; }
+header { margin-bottom: 36px; }
+.home-link { display: inline-block; margin-bottom: 20px; color: var(--link); text-decoration: none; }
+.home-link:hover { text-decoration: underline; }
+.home-link:focus-visible { outline: 1px solid var(--focus); outline-offset: 2px; }
+h1 { font: 500 32px/1.25 var(--serif); color: var(--strong); margin: 0; }
+.sub { margin: 8px 0 0; color: var(--soft); font-size: 16px; }
+.keyboard-area { padding: 0 0 28px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+.keyboard-heading { display: flex; justify-content: space-between; margin-bottom: 18px; gap: 16px; }
+.kbd-label, .field label, .form legend, .presets > span { font: 500 18px/1.45 var(--serif); color: var(--strong); }
+.keyboard-heading p { margin: 0; }
+.keyboard-help { color: var(--soft); font-size: 14px; }
+.keyboard { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 18px 12px; }
+.section { display: flex; flex-direction: column; gap: 5px; }
+.line { display: flex; gap: 5px; }
+.line.center { justify-content: center; }
+.key { appearance: none; width: 42px; height: 61px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 5px; background: var(--button); border: 1px solid var(--line); color: var(--ink); }
+.key:hover { color: var(--hover); border-color: var(--hover-border); }
+.key:active { background: var(--field); }
+.key svg { width: 29px; height: 29px; stroke: currentColor; fill: none; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.key .lbl { font: 14px/1 var(--serif); color: var(--ink); pointer-events: none; }
+.key.fn { width: auto; flex: 1; min-width: 59px; }
+.key.fn .lbl { font: 13px/1.2 var(--serif); }
+.widget { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 48px; align-items: start; }
+.controls { grid-column: 1; grid-row: 1; min-width: 0; }
+.field label { display: block; margin-bottom: 10px; }
+textarea { display: block; width: 100%; min-height: 250px; resize: vertical; padding: 14px; font: 16px/1.8 Menlo, Consolas, monospace; background: var(--field); border: 1px solid var(--line); color: var(--ink); }
+.presets { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin: 22px 0 26px; }
+.presets > span { grid-column: 1 / -1; margin-bottom: 5px; }
+.presets button { height: 31px; padding: 0; color: var(--ink); border: 1px solid var(--line); background: var(--button); font: 15px var(--serif); }
+.presets button:hover { border-color: var(--hover-border); color: var(--link); }
+.presets button.active { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.group { display: grid; gap: 22px; }
+.group fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.group legend { padding: 0; margin-bottom: 10px; }
+.pair { display: flex; gap: 22px; }
+.pair label { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+.pair input[type="checkbox"] { accent-color: var(--link); width: 15px; height: 15px; margin: 0; }
+.num input { width: 70px; padding: 6px 8px; background: var(--button); color: var(--ink); border: 1px solid var(--line); }
+.copy { width: 100%; margin-top: 26px; padding: 10px 16px; border: 1px solid var(--line); color: var(--soft); background: var(--button); font-size: 15px; }
+.copy:hover { color: var(--hover); border-color: var(--hover-border); }
+.preview { grid-column: 2; grid-row: 1; min-width: 0; color: var(--ink); overflow: auto; }
+.preview-heading { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 16px; color: var(--soft); font: 16px/1.45 var(--serif); }
+.pattern-frame { width: 100%; }
+.pattern { display: grid; width: 100%; }
+.cell { aspect-ratio: 1; line-height: 0; min-width: 0; }
+.cell svg { display: block; width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.cell.blank { visibility: hidden; }
+.hints { margin-top: 24px; color: var(--soft); font-size: 14px; }
+.hints summary { cursor: pointer; color: var(--link); }
+.hints p { margin: 10px 0 0; line-height: 1.7; }
+.hints code { color: var(--ink); font: 11px Menlo, Consolas, monospace; }
+footer { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 48px; color: var(--soft); font-size: 14px; }
+@media (max-width: 900px) { .wrap { padding: 40px 24px; } .widget { grid-template-columns: 220px minmax(0, 1fr); gap: 28px; } }
+@media (max-width: 600px) {
+  .wrap { padding: 28px 18px; }
+  header { margin-bottom: 28px; }
+  h1 { font-size: 30px; }
+  .sub { max-width: none; margin-top: 8px; }
+  .keyboard-area { padding: 0 0 22px; margin-bottom: 24px; }
+  .keyboard-heading { display: block; }
+  .keyboard-help { margin-top: 6px !important; }
+  .keyboard { justify-content: flex-start; gap: 14px 10px; }
+  .key { width: 37px; height: 54px; }
+  .key svg { width: 25px; height: 25px; }
+  .widget { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .controls { grid-column: 1; grid-row: 1; }
+  .preview { grid-column: 1; grid-row: 2; }
+  textarea { min-height: 125px; height: 125px; }
+  .group { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+  .group fieldset:first-child { grid-column: 1 / -1; }
+  footer { margin-top: 32px; }
+}
+.font-drop { display: block; position: relative; padding: 20px; margin: 0 0 28px; border: 1px dashed var(--line); background: var(--field); cursor: pointer; }
+.font-drop:hover, .font-drop.dragging { border-color: var(--link); }
+.font-drop:focus-within { outline: 1px solid var(--focus); outline-offset: 2px; }
+.font-drop strong { display: block; font-weight: 500; color: var(--strong); }
+.font-drop span { display: block; color: var(--soft); font-size: 14px; margin-top: 4px; }
+.font-drop input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.font-status { font-size: 14px; color: var(--soft); overflow-wrap: anywhere; margin: -16px 0 24px; }
+.font-status[data-error="true"] { color: var(--link); }
+.font-options { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 0 0 24px; font-size: 14px; }
+.font-options label { display: flex; gap: 10px; align-items: center; }
+.font-options input { width: 120px; accent-color: var(--link); }
+.font-options button { background: var(--button); color: var(--ink); border: 1px solid var(--line); padding: 4px 10px; }
+[hidden] { display: none !important; }
+.font-glyph { font-family: var(--ornament-font); font-weight: 400; font-style: normal; font-synthesis: none; font-kerning: none; font-variant-ligatures: none; }
+.cell.font-cell { display: flex; align-items: center; justify-content: center; line-height: 1; }
+.cell .font-glyph { display: block; line-height: 1; white-space: pre; }
+.key .font-glyph { width: 29px; height: 29px; text-align: center; font-size: 29px; line-height: 1; pointer-events: none; }
+.more-characters { margin-top: 18px; color: var(--soft); font-size: 14px; }
+.more-characters summary { cursor: pointer; }
+.extra-keys { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home-link" href="../">← Smit Patil</a>
+    <h1>Ornamenta</h1>
+    <p class="sub">Compose repeating patterns with ornamental glyphs.</p>
+  </header>
+
+  <label class="font-drop" id="font-drop" for="font-file">
+    <strong>Drop an ornamental font here, or choose a file</strong>
+    <span>OTF, TTF, WOFF or WOFF2. Your font stays in this browser.</span>
+    <input id="font-file" type="file" accept=".otf,.ttf,.woff,.woff2" aria-label="Choose an ornamental font">
+  </label>
+  <p class="font-status" id="font-status" role="status">Showing SVG samples. Load a font to test its actual glyphs.</p>
+  <div class="font-options" id="font-options" hidden>
+    <label for="glyph-scale">Glyph size <input id="glyph-scale" type="range" min="50" max="200" value="100"><output id="glyph-scale-value" for="glyph-scale">100%</output></label>
+    <button type="button" id="reset-font">Use SVG samples</button>
+  </div>
+
+  <section class="keyboard-area" aria-labelledby="keyboard-title">
+    <div class="keyboard-heading">
+      <p class="kbd-label" id="keyboard-title">Ornament keyboard</p>
+      <p class="keyboard-help">Click a key to insert an ornament, or type below.</p>
+    </div>
+    <div class="keyboard" id="keyboard" role="group" aria-label="Ornament keyboard"></div>
+    <details class="more-characters" id="more-characters" hidden>
+      <summary>More characters</summary>
+      <div class="extra-keys" id="extra-keys" role="group" aria-label="Additional font characters"></div>
+    </details>
+  </section>
+
+  <main class="widget">
+    <div class="preview" role="region" aria-label="Pattern preview">
+      <div class="preview-heading"><span>Pattern preview</span><span id="grid-size"></span></div>
+      <div class="pattern-frame"><div class="pattern" id="pattern" aria-live="polite"></div></div>
+    </div>
+
+    <div class="controls">
+      <form class="form" id="form" autocomplete="off">
+        <div class="field">
+          <label for="text">Pattern Text</label>
+          <textarea id="text" rows="6" spellcheck="false" aria-label="Pattern text"></textarea>
+        </div>
+        <p class="presets" id="presets">
+          <span>Presets</span>
+        </p>
+        <div class="group">
+          <fieldset class="num">
+            <legend>Grid dimensions</legend>
+            <div class="pair">
+              <label>X <input type="number" id="gridx" min="1" max="100" value="12"></label>
+              <label>Y <input type="number" id="gridy" min="1" max="100" value="12"></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Canvas symmetry</legend>
+            <div class="pair">
+              <label><input type="checkbox" id="totalxsym"> X</label>
+              <label><input type="checkbox" id="totalysym"> Y</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Pattern symmetry</legend>
+            <div class="pair">
+              <label><input type="checkbox" id="localxsym"> X</label>
+              <label><input type="checkbox" id="localysym"> Y</label>
+            </div>
+          </fieldset>
+        </div>
+        <button type="button" class="copy" id="copy">Copy plain text</button>
+      </form>
+      <details class="hints">
+        <summary>Pattern notation</summary>
+        <p>Type or paste characters from your font, including Unicode glyphs. The keyboard shows Latin characters; available ornaments depend on the font. Symmetry uses the sample keyboard’s character pairs, which may differ in your font.</p>
+        <p>A line beginning with <code>*</code> splits the pattern into top, middle and bottom bands. Within a line, <code>*</code> sets its start and end. Spaces leave a blank tile. <code>S</code> is also blank in SVG sample mode. <code>*</code> is reserved for pattern notation.</p>
+      </details>
+    </div>
+  </main>
+
+  <footer><span>Ornamenta</span><span>Pattern text is case-sensitive.</span></footer>
+</div>
+
+<script>
+const GLYPHS = {
+  q: { d: `<circle cx="44" cy="44" r="21"/><path d="M59 61 C71 65 80 56 76 46 C72 38 62 37 59 44 C57 50 63 52 66 49"/>`, fx: 1, fy: 1 },
+  e: { d: `<circle cx="44" cy="44" r="21"/><path d="M59 61 C71 65 80 56 76 46 C72 38 62 37 59 44 C57 50 63 52 66 49"/>`, fx: -1, fy: 1 },
+  z: { d: `<circle cx="44" cy="44" r="21"/><path d="M59 61 C71 65 80 56 76 46 C72 38 62 37 59 44 C57 50 63 52 66 49"/>`, fx: 1, fy: -1 },
+  c: { d: `<circle cx="44" cy="44" r="21"/><path d="M59 61 C71 65 80 56 76 46 C72 38 62 37 59 44 C57 50 63 52 66 49"/>`, fx: -1, fy: -1 },
+  w: { d: `<path d="M50 12 C62 12 68 22 68 32 C68 44 60 52 50 58 C40 52 32 44 32 32 C32 22 38 12 50 12 Z"/><path d="M50 58 L50 80"/><path d="M36 70 C44 67 56 67 64 70"/><path d="M36 84 C44 87 56 87 64 84"/>`, fx: 1, fy: 1 },
+  x: { d: `<path d="M50 12 C62 12 68 22 68 32 C68 44 60 52 50 58 C40 52 32 44 32 32 C32 22 38 12 50 12 Z"/><path d="M50 58 L50 80"/><path d="M36 70 C44 67 56 67 64 70"/><path d="M36 84 C44 87 56 87 64 84"/>`, fx: 1, fy: -1 },
+  a: { d: `<circle cx="46" cy="50" r="16"/><path d="M62 50 C70 44 72 36 70 28 M62 50 C70 56 72 64 70 72"/>`, fx: 1, fy: 1 },
+  d: { d: `<circle cx="46" cy="50" r="16"/><path d="M62 50 C70 44 72 36 70 28 M62 50 C70 56 72 64 70 72"/>`, fx: -1, fy: 1 },
+  r: { d: `<path style="fill:currentColor;stroke:none" d="M46 12 A40 40 0 0 0 46 88 A40 40 0 0 0 46 12 Z"/><circle style="fill:currentColor;stroke:none" cx="82" cy="50" r="6"/>`, fx: 1, fy: 1 },
+  t: { d: `<path style="fill:currentColor;stroke:none" d="M46 12 A40 40 0 0 0 46 88 A40 40 0 0 0 46 12 Z"/><circle style="fill:currentColor;stroke:none" cx="82" cy="50" r="6"/>`, fx: -1, fy: 1 },
+  f: { d: `<path style="fill:currentColor;stroke:none" d="M46 12 A40 40 0 0 0 46 88 A40 40 0 0 0 46 12 Z"/><circle style="fill:currentColor;stroke:none" cx="82" cy="50" r="6"/>`, fx: 1, fy: -1 },
+  g: { d: `<path style="fill:currentColor;stroke:none" d="M46 12 A40 40 0 0 0 46 88 A40 40 0 0 0 46 12 Z"/><circle style="fill:currentColor;stroke:none" cx="82" cy="50" r="6"/>`, fx: -1, fy: -1 },
+  y: { d: `<path d="M30 70 C48 70 50 30 70 30"/><circle style="fill:currentColor;stroke:none" cx="24" cy="70" r="6"/>`, fx: 1, fy: 1 },
+  u: { d: `<path d="M30 70 C48 70 50 30 70 30"/><circle style="fill:currentColor;stroke:none" cx="76" cy="30" r="6"/>`, fx: 1, fy: 1 },
+  h: { d: `<path d="M50 10 L50 52 C50 70 34 70 34 56"/><circle style="fill:currentColor;stroke:none" cx="34" cy="56" r="5"/>`, fx: 1, fy: 1 },
+  j: { d: `<path d="M50 90 L50 48 C50 30 66 30 66 44"/><circle style="fill:currentColor;stroke:none" cx="66" cy="44" r="5"/>`, fx: 1, fy: 1 },
+  i: { d: `<path d="M50 50 L78 50"/><path d="M62 50 C68 40 74 34 79 38 C83 42 78 50 70 52"/><path d="M62 50 C68 60 74 66 79 62 C83 58 78 50 70 48"/>`, fx: 1, fy: 1 },
+  p: { d: `<path d="M50 50 L78 50"/><path d="M62 50 C68 40 74 34 79 38 C83 42 78 50 70 52"/><path d="M62 50 C68 60 74 66 79 62 C83 58 78 50 70 48"/>`, fx: -1, fy: 1 },
+  o: { d: `<path d="M50 10 C62 10 68 18 68 28 C68 40 60 46 50 48 C40 46 32 40 32 28 C32 18 38 10 50 10 Z"/><path d="M50 48 L50 64"/><path d="M40 76 L60 76"/>`, fx: 1, fy: 1 },
+  l: { d: `<path d="M50 90 C38 90 32 82 32 72 C32 60 40 54 50 52 C60 54 68 60 68 72 C68 82 62 90 50 90 Z"/><path d="M50 52 L50 36"/><path d="M40 24 L60 24"/>`, fx: 1, fy: -1 },
+  b: { d: `<path d="M50 16 L58 42 L84 50 L58 58 L50 84 L42 58 L16 50 L42 42 Z"/><circle style="fill:currentColor;stroke:none" cx="72" cy="74" r="5"/>`, fx: 1, fy: 1 },
+  v: { d: `<path d="M50 16 L58 42 L84 50 L58 58 L50 84 L42 58 L16 50 L42 42 Z"/><circle style="fill:currentColor;stroke:none" cx="28" cy="26" r="5"/>`, fx: 1, fy: 1 },
+  Q: { d: `<circle cx="50" cy="26" r="11"/><circle cx="67" cy="33" r="11"/><circle cx="74" cy="50" r="11"/><circle cx="67" cy="67" r="11"/><circle cx="50" cy="74" r="11"/><circle cx="33" cy="67" r="11"/><circle cx="26" cy="50" r="11"/><circle cx="33" cy="33" r="11"/><circle cx="50" cy="50" r="8"/><path d="M80 16 C74 18 70 26 72 32 C78 32 80 24 80 16"/>`, fx: 1, fy: 1 },
+  E: { d: `<circle cx="50" cy="26" r="11"/><circle cx="67" cy="33" r="11"/><circle cx="74" cy="50" r="11"/><circle cx="67" cy="67" r="11"/><circle cx="50" cy="74" r="11"/><circle cx="33" cy="67" r="11"/><circle cx="26" cy="50" r="11"/><circle cx="33" cy="33" r="11"/><circle cx="50" cy="50" r="8"/><path d="M80 16 C74 18 70 26 72 32 C78 32 80 24 80 16"/>`, fx: -1, fy: 1 },
+  Z: { d: `<circle cx="50" cy="26" r="11"/><circle cx="67" cy="33" r="11"/><circle cx="74" cy="50" r="11"/><circle cx="67" cy="67" r="11"/><circle cx="50" cy="74" r="11"/><circle cx="33" cy="67" r="11"/><circle cx="26" cy="50" r="11"/><circle cx="33" cy="33" r="11"/><circle cx="50" cy="50" r="8"/><path d="M80 16 C74 18 70 26 72 32 C78 32 80 24 80 16"/>`, fx: 1, fy: -1 },
+  C: { d: `<circle cx="50" cy="26" r="11"/><circle cx="67" cy="33" r="11"/><circle cx="74" cy="50" r="11"/><circle cx="67" cy="67" r="11"/><circle cx="50" cy="74" r="11"/><circle cx="33" cy="67" r="11"/><circle cx="26" cy="50" r="11"/><circle cx="33" cy="33" r="11"/><circle cx="50" cy="50" r="8"/><path d="M80 16 C74 18 70 26 72 32 C78 32 80 24 80 16"/>`, fx: -1, fy: -1 },
+  W: { d: `<path d="M50 8 L58 28 L72 22 L66 42 L82 46 L50 66 L18 46 L34 42 L28 22 L42 28 Z"/><path d="M32 74 L68 74"/><path d="M50 66 L50 84"/>`, fx: 1, fy: 1 },
+  X: { d: `<path d="M50 8 L58 28 L72 22 L66 42 L82 46 L50 66 L18 46 L34 42 L28 22 L42 28 Z"/><path d="M32 74 L68 74"/><path d="M50 66 L50 84"/>`, fx: 1, fy: -1 },
+  A: { d: `<path d="M50 30 L68 50 L50 70 L32 50 Z"/><path d="M22 50 L78 50"/><path d="M50 14 L50 30 M50 70 L50 86"/><circle style="fill:currentColor;stroke:none" cx="76" cy="50" r="5"/>`, fx: 1, fy: 1 },
+  D: { d: `<path d="M50 30 L68 50 L50 70 L32 50 Z"/><path d="M22 50 L78 50"/><path d="M50 14 L50 30 M50 70 L50 86"/><circle style="fill:currentColor;stroke:none" cx="76" cy="50" r="5"/>`, fx: -1, fy: 1 },
+  R: { d: `<circle cx="50" cy="50" r="10"/><path d="M50 38 L50 16"/><path d="M72 50 L88 50"/><path d="M50 62 L50 84"/><path d="M28 50 L12 50"/><path d="M65.6 34.4 L76 24"/><path d="M34.4 65.6 L24 76"/><path d="M65.6 65.6 L76 76"/><path d="M34.4 34.4 L24 24"/><path d="M67 33 L87 13"/>`, fx: 1, fy: 1 },
+  T: { d: `<circle cx="50" cy="50" r="10"/><path d="M50 38 L50 16"/><path d="M72 50 L88 50"/><path d="M50 62 L50 84"/><path d="M28 50 L12 50"/><path d="M65.6 34.4 L76 24"/><path d="M34.4 65.6 L24 76"/><path d="M65.6 65.6 L76 76"/><path d="M34.4 34.4 L24 24"/><path d="M67 33 L87 13"/>`, fx: -1, fy: 1 },
+  F: { d: `<circle cx="50" cy="50" r="10"/><path d="M50 38 L50 16"/><path d="M72 50 L88 50"/><path d="M50 62 L50 84"/><path d="M28 50 L12 50"/><path d="M65.6 34.4 L76 24"/><path d="M34.4 65.6 L24 76"/><path d="M65.6 65.6 L76 76"/><path d="M34.4 34.4 L24 24"/><path d="M67 33 L87 13"/>`, fx: 1, fy: -1 },
+  G: { d: `<circle cx="50" cy="50" r="10"/><path d="M50 38 L50 16"/><path d="M72 50 L88 50"/><path d="M50 62 L50 84"/><path d="M28 50 L12 50"/><path d="M65.6 34.4 L76 24"/><path d="M34.4 65.6 L24 76"/><path d="M65.6 65.6 L76 76"/><path d="M34.4 34.4 L24 24"/><path d="M67 33 L87 13"/>`, fx: -1, fy: -1 },
+  Y: { d: `<path d="M18 50 L46 24 L46 40 L74 40 L74 60 L46 60 L46 76 Z"/><circle style="fill:currentColor;stroke:none" cx="80" cy="50" r="4"/>`, fx: 1, fy: 1 },
+  U: { d: `<path d="M18 50 L46 24 L46 40 L74 40 L74 60 L46 60 L46 76 Z"/><circle style="fill:currentColor;stroke:none" cx="80" cy="50" r="4"/>`, fx: -1, fy: -1 },
+  H: { d: `<path d="M50 8 L50 40 C50 58 66 62 66 74 L66 90"/><path d="M50 40 L34 40"/>`, fx: 1, fy: 1 },
+  J: { d: `<path d="M50 92 L50 60 C50 42 34 38 34 26 L34 10"/><path d="M50 60 L66 60"/>`, fx: 1, fy: 1 },
+  I: { d: `<path d="M30 50 L66 22"/><path d="M30 50 L72 50"/><path d="M30 50 L66 78"/><path d="M30 36 A18 18 0 0 1 30 64"/>`, fx: 1, fy: 1 },
+  P: { d: `<path d="M30 50 L66 22"/><path d="M30 50 L72 50"/><path d="M30 50 L66 78"/><path d="M30 36 A18 18 0 0 1 30 64"/>`, fx: -1, fy: 1 },
+  O: { d: `<path d="M34 18 C40 10 60 10 66 18 C72 26 72 36 66 44 C60 52 40 52 34 44 C28 36 28 26 34 18 Z"/><path d="M50 52 L50 66"/><path d="M42 66 L58 66"/><path d="M36 78 L64 78"/>`, fx: 1, fy: 1 },
+  L: { d: `<path d="M34 18 C40 10 60 10 66 18 C72 26 72 36 66 44 C60 52 40 52 34 44 C28 36 28 26 34 18 Z"/><path d="M50 52 L50 66"/><path d="M42 66 L58 66"/><path d="M36 78 L64 78"/>`, fx: 1, fy: -1 },
+  B: { d: `<path d="M50 12 L64 26 L88 50 L64 74 L50 88 L36 74 L12 50 L36 26 Z"/><path d="M50 12 L36 26 M50 88 L64 74 M12 50 L36 74 M88 50 L64 26"/><circle style="fill:currentColor;stroke:none" cx="72" cy="72" r="5"/>`, fx: 1, fy: 1 },
+  V: { d: `<path d="M50 12 L64 26 L88 50 L64 74 L50 88 L36 74 L12 50 L36 26 Z"/><path d="M50 12 L36 26 M50 88 L64 74 M12 50 L36 74 M88 50 L64 26"/><circle style="fill:currentColor;stroke:none" cx="28" cy="28" r="5"/>`, fx: 1, fy: 1 },
+  S: null,
+  " ": null
+};
+
+const X_SYM = { Q: "E", A: "D", Z: "C", q: "e", a: "d", z: "c", R: "T", F: "G", r: "t", f: "g", Y: "U", H: "J", y: "u", h: "j", I: "P", B: "V", i: "p", b: "v" };
+const Y_SYM = { Q: "Z", W: "X", E: "C", q: "z", w: "x", e: "c", R: "F", T: "G", r: "f", t: "g", Y: "U", H: "J", y: "u", h: "j", O: "L", B: "V", o: "l", b: "v" };
+const invert = (m) => Object.fromEntries(Object.entries(m).map(([k, v]) => [v, k]));
+const X_SYM_FULL = { ...invert(X_SYM), ...X_SYM };
+const Y_SYM_FULL = { ...invert(Y_SYM), ...Y_SYM };
+
+function getSym(str, map) {
+  let out = "";
+  for (const c of str) out += map[c] ?? c;
+  return out;
+}
+
+function splitLine(line, localX) {
+  let segs = line.split("*");
+  if (segs.length === 1) segs = ["", segs[0], ""];
+  else if (segs.length === 2) segs.push("");
+  if (segs[1] === "") segs[1] = " ";
+  if (localX) {
+    for (let i = 1; i < segs.length - 1; i++) {
+      segs[i] += getSym(segs[i].split("").reverse().join(""), X_SYM_FULL);
+    }
+  }
+  return segs;
+}
+
+function parseSections(text, localX) {
+  const raw = text.split(/\r?\n/);
+  const clean = [];
+  let breaks = 0;
+  for (const l of raw) {
+    if (breaks < 2) {
+      clean.push(l);
+      if (l[0] === "*") breaks++;
+    } else if (l[0] !== "*") clean.push(l);
+  }
+  if (clean.length && clean[0][0] === "*") clean.shift();
+  if (clean.length && clean[clean.length - 1][0] === "*") clean.pop();
+  let sections = [];
+  let cur = [];
+  for (const l of clean) {
+    if (l.trim()[0] === "*") { sections.push(cur); cur = []; }
+    else cur.push(splitLine(l, localX));
+  }
+  if (cur.length) sections.push(cur);
+  if (sections.length === 0) sections = [[], [], []];
+  else if (sections.length === 1) sections = [[], sections[0], []];
+  else if (sections.length === 2) sections = [sections[0], sections[1], []];
+  else if (sections.length > 3) sections = [sections[0], sections.slice(1, -1).flat(), sections[sections.length - 1]];
+  return sections;
+}
+
+function applyLocalY(sections) {
+  const main = sections[1];
+  const mirrored = [];
+  for (let i = main.length - 1; i >= 0; i--) {
+    mirrored.push([main[i][0], getSym(main[i][1], Y_SYM_FULL), main[i][2]]);
+  }
+  sections[1] = main.concat(mirrored);
+  return sections;
+}
+
+function processLine(segs, o) {
+  let prefix = segs[0];
+  let suffix = segs[segs.length - 1];
+  if (o.totalXSym) suffix = getSym(prefix.split("").reverse().join(""), X_SYM_FULL);
+  let r = o.cellsX - prefix.length - suffix.length;
+  const mainCol = segs.slice(1, -1).join("") || " ";
+  let row = "";
+  if (r > 0) {
+    let repeatsX = Math.ceil(r / mainCol.length);
+    if (o.totalXSym) repeatsX = Math.ceil(repeatsX / 2);
+    let a = mainCol.repeat(Math.max(0, repeatsX));
+    if (o.totalXSym) {
+      let rev = getSym(a.split("").reverse().join(""), X_SYM_FULL);
+      while (a.length + rev.length > r) {
+        rev = rev.slice(1);
+        if (a.length + rev.length > r) a = a.slice(0, -1);
+      }
+      row = a + rev;
+    } else {
+      row = a.slice(0, r);
+    }
+  }
+  return (prefix + row + suffix).padEnd(o.cellsX, " ").slice(0, o.cellsX);
+}
+
+function buildRows(sections, o) {
+  let [rowPrefix, mainSection, rowSuffix] = sections;
+  if (o.totalYSym) rowSuffix = rowPrefix.slice().reverse();
+  const rows = [];
+  for (const l of rowPrefix) rows.push(processLine(l, o));
+  const mainRows = mainSection.slice();
+  if (mainRows.length === 0) mainRows.push(["", "", ""]);
+  const mainRowCount = o.cellsY - rowPrefix.length - rowSuffix.length;
+  let repeatsY = Math.ceil(mainRowCount / mainRows.length);
+  if (o.totalYSym) repeatsY = Math.ceil(repeatsY / 2);
+  let lines = [];
+  for (let i = 0; i < Math.max(0, repeatsY); i++) {
+    for (const l of mainRows) lines.push(processLine(l, o));
+  }
+  if (o.totalYSym) {
+    let rev = lines.slice();
+    while (lines.length + rev.length > mainRowCount) {
+      rev = rev.slice(0, -1);
+      if (lines.length + rev.length > mainRowCount) lines = lines.slice(0, -1);
+    }
+    rev.reverse();
+    for (const l of lines) rows.push(l);
+    for (const l of rev) rows.push(getSym(l, Y_SYM_FULL));
+  } else {
+    for (const l of lines.slice(0, Math.max(0, mainRowCount))) rows.push(l);
+  }
+  for (const l of rowSuffix) {
+    let s = processLine(l, o);
+    if (o.totalYSym) s = getSym(s, Y_SYM_FULL);
+    rows.push(s);
+  }
+  return rows;
+}
+
+const PRESETS = [
+  ["q*ad*e\n******\nw*Yu*x\nx*hJ*w\n******\nz*ad*c", 12, 12, 0, 0, 0, 0],
+  ["QETR\nZCGF\nTRQE\nGFZC", 16, 16, 0, 0, 0, 0],
+  ["RFY\nTGU", 12, 12, 1, 1, 1, 1],
+  ["SSSSSwSSSSS\nSSSIThRPSSS\nSSSSTjRSSSS\nSOSQThRESOS\nSFFFSLSGGGS\nayuyPwIuyud\nSRRRSOSTTTS\nSLSZGjFCSLS\nSSSSGhFSSSS\nSSSIGjFPSSS\nSSSSSxSSSSS", 11, 11, 0, 0, 0, 0],
+  ["Sq*w\nqQ*W\n****\naA*v", 12, 12, 1, 1, 1, 1],
+  ["JHWYFWGFWGUW\nTRXURXHJXTYX\nADSADSADSADS \nYFWGFWGUWJHW\nURXHJXTYXTRX\nADSADSADSADS\nGFWGUWJHWYFW\nHJXTYXTRXURX\nADSADSADSADS\nGUWJHWYFWGFW\nTYXTRXURXHJX\nADSADSADSADS", 18, 18, 0, 0, 0, 0],
+  ["RYUTRT\nFUYGJH\nRYUTHJ\nFUYGFG\nTRTRYU\nGJHFUY", 12, 12, 0, 1, 0, 0],
+  ["TF", 12, 12, 0, 0, 0, 0],
+  ["RF\nTG", 12, 12, 0, 0, 0, 0],
+  ["Q*W*E\nAV*O*BD\n*\nAI*RTYU*PD\nAI*UYFG*PD\nAI*YURT*PD\nAI*FGUY*PD", 12, 12, 0, 1, 0, 0],
+  ["RH\nhr", 12, 12, 0, 0, 1, 1],
+  ["q*yu\n****\nj*RT\nh*FG", 24, 24, 1, 1, 0, 0]
+];
+
+const $ = (id) => document.getElementById(id);
+const patternEl = $("pattern");
+const textEl = $("text");
+const gridXEl = $("gridx");
+const gridYEl = $("gridy");
+const totalXSymEl = $("totalxsym");
+const totalYSymEl = $("totalysym");
+const localXSymEl = $("localxsym");
+const localYSymEl = $("localysym");
+const copyEl = $("copy");
+const presetsEl = $("presets");
+const keyboardEl = $("keyboard");
+const frameEl = document.querySelector(".pattern-frame");
+
+let lastCell = 0;
+let loadedFont = null;
+let fontRequest = 0;
+const escapeHTML = (text) => text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fontGlyph = (ch) => `<span class="font-glyph" aria-hidden="true">${escapeHTML(ch)}</span>`;
+
+function refreshFontKeys() {
+  keyboardEl.querySelectorAll(".key").forEach((button) => {
+    const key = button.dataset.key;
+    if (!GLYPHS[key]) return;
+    button.querySelector("svg").hidden = !!loadedFont;
+    // SVG does not consistently support the HTML hidden attribute.
+    button.querySelector("svg").style.display = loadedFont ? "none" : "";
+    button.querySelector(".font-glyph")?.remove();
+    if (loadedFont) button.insertAdjacentHTML("afterbegin", fontGlyph(key));
+  });
+  $("more-characters").hidden = !loadedFont;
+  $("font-options").hidden = !loadedFont;
+  render();
+}
+
+async function loadFont(file) {
+  if (!file) return;
+  const request = ++fontRequest;
+  const status = $("font-status");
+  status.dataset.error = "false";
+  if (!/\.(otf|ttf|woff2?)$/i.test(file.name)) {
+    status.textContent = "Choose an OTF, TTF, WOFF or WOFF2 font. The current pattern is unchanged.";
+    status.dataset.error = "true";
+    return;
+  }
+  status.textContent = `Loading ${file.name}…`;
+  let candidate;
+  try {
+    candidate = new FontFace(`OrnamentUpload${request}`, await file.arrayBuffer());
+    await candidate.load();
+    if (request !== fontRequest) return;
+    document.fonts.add(candidate);
+    const previous = loadedFont;
+    loadedFont = candidate;
+    document.documentElement.style.setProperty("--ornament-font", `"${candidate.family}"`);
+    refreshFontKeys();
+    if (previous) document.fonts.delete(previous);
+    status.textContent = `${file.name} — loaded locally. Drop another font to compare.`;
+  } catch {
+    if (request !== fontRequest) return;
+    status.textContent = "This font could not be loaded. Try another OTF, TTF, WOFF or WOFF2 file. The current font is unchanged.";
+    status.dataset.error = "true";
+  }
+}
+$("font-file").addEventListener("change", (event) => {
+  loadFont(event.target.files[0]);
+  event.target.value = "";
+});
+const dropZone = $("font-drop");
+["dragenter", "dragover"].forEach((name) => dropZone.addEventListener(name, (event) => {
+  event.preventDefault();
+  dropZone.classList.add("dragging");
+}));
+["dragleave", "drop"].forEach((name) => dropZone.addEventListener(name, (event) => {
+  event.preventDefault();
+  dropZone.classList.remove("dragging");
+}));
+dropZone.addEventListener("drop", (event) => loadFont(event.dataTransfer.files[0]));
+// Keep accidental drops outside the target from navigating away from the tool.
+["dragover", "drop"].forEach((name) => window.addEventListener(name, (event) => {
+  if (Array.from(event.dataTransfer?.types || []).includes("Files")) event.preventDefault();
+}));
+$("glyph-scale").addEventListener("input", () => {
+  $("glyph-scale-value").value = `${$("glyph-scale").value}%`;
+  render();
+});
+$("reset-font").addEventListener("click", () => {
+  ++fontRequest;
+  if (loadedFont) document.fonts.delete(loadedFont);
+  loadedFont = null;
+  refreshFontKeys();
+  $("font-status").dataset.error = "false";
+  $("font-status").textContent = "Showing SVG samples. Load a font to test its actual glyphs.";
+});
+
+function state() {
+  return {
+    cellsX: Math.min(100, Math.max(1, parseInt(gridXEl.value, 10) || 1)),
+    cellsY: Math.min(100, Math.max(1, parseInt(gridYEl.value, 10) || 1)),
+    totalXSym: totalXSymEl.checked,
+    totalYSym: totalYSymEl.checked,
+    localXSym: localXSymEl.checked,
+    localYSym: localYSymEl.checked
+  };
+}
+
+function glyphMarkup(ch) {
+  if (loadedFont) return ch === " "
+    ? `<span class="cell blank" aria-hidden="true"></span>`
+    : `<span class="cell font-cell">${fontGlyph(ch)}</span>`;
+  const g = GLYPHS[ch];
+  if (!g) return `<span class="cell blank" aria-hidden="true"></span>`;
+  return `<span class="cell"><svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 50) scale(${g.fx} ${g.fy}) translate(-50 -50)">${g.d}</g></svg></span>`;
+}
+
+function computeRows() {
+  const o = state();
+  let sections = parseSections(textEl.value, o.localXSym);
+  if (o.localYSym) sections = applyLocalY(sections);
+  return buildRows(sections, o);
+}
+
+function render() {
+  const o = state();
+  const rows = computeRows();
+  const cell = frameEl.clientWidth / o.cellsX;
+  lastCell = cell;
+  patternEl.style.fontSize = `${cell * Number($("glyph-scale").value) / 100}px`;
+  let html = "";
+  for (const row of rows) {
+    for (const ch of row) html += glyphMarkup(ch);
+  }
+  patternEl.style.gridTemplateColumns = `repeat(${o.cellsX}, minmax(0, 1fr))`;
+  $("grid-size").textContent = `${o.cellsX} × ${rows.length}`;
+  patternEl.innerHTML = html;
+}
+
+new ResizeObserver(() => {
+  const o = state();
+  const cell = frameEl.clientWidth / o.cellsX;
+  if (cell !== lastCell) render();
+}).observe(frameEl);
+
+const KEYBOARD = [
+  [["Q", "W", "E"], ["A", "D"], ["Z", "X", "C"]],
+  [["R", "T"], ["F", "G"], ["V", "B"]],
+  [["Y", "U"], ["H", "J"]],
+  [["I", "O", "P"], ["L"]],
+  [["q", "w", "e"], ["a", "d"], ["z", "x", "c"]],
+  [["r", "t"], ["f", "g"]],
+  [["y", "u"], ["h", "j"]],
+  [["i", "o", "p"], ["l"]],
+  [["*", "Delete"], ["Return"], ["Space"]]
+];
+
+for (const rows of KEYBOARD) {
+  const section = document.createElement("div");
+  section.className = "section";
+  for (const row of rows) {
+    const line = document.createElement("div");
+    line.className = "line";
+    if (row.length === 1) line.classList.add("center");
+    for (const key of row) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "key";
+      btn.dataset.key = key;
+      btn.setAttribute("aria-label", GLYPHS[key] ? `Insert ornament ${key}` : key === "*" ? "Insert pattern separator" : key);
+      if (key === "Delete" || key === "Return" || key === "Space") {
+        btn.classList.add("fn");
+        btn.innerHTML = `<span class="lbl">${key}</span>`;
+      } else if (key === "*") {
+        btn.innerHTML = `<span class="lbl">*</span>`;
+      } else {
+        const g = GLYPHS[key];
+        btn.innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 50) scale(${g.fx} ${g.fy}) translate(-50 -50)">${g.d}</g></svg><span class="lbl">${key}</span>`;
+      }
+      line.appendChild(btn);
+    }
+    section.appendChild(line);
+  }
+  keyboardEl.appendChild(section);
+}
+
+const shownKeys = new Set(KEYBOARD.flat(2));
+for (let code = 33; code <= 126; code++) {
+  const key = String.fromCharCode(code);
+  if (shownKeys.has(key)) continue;
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "key";
+  button.dataset.key = key;
+  button.setAttribute("aria-label", `Insert character ${key}`);
+  button.innerHTML = fontGlyph(key) + `<span class="lbl">${escapeHTML(key)}</span>`;
+  $("extra-keys").appendChild(button);
+}
+
+document.querySelector(".keyboard-area").addEventListener("click", (e) => {
+  const btn = e.target.closest(".key");
+  if (!btn) return;
+  const key = btn.dataset.key;
+  let start = textEl.selectionStart;
+  const end = textEl.selectionEnd;
+  const insert = key === "Delete" ? "" : key === "Return" ? "\n" : key === "Space" ? " " : key;
+  if (key === "Delete" && start === end) start = Math.max(0, start - 1);
+  textEl.setRangeText(insert, start, end, "end");
+  clearPreset();
+  render();
+  textEl.focus({ preventScroll: true });
+});
+
+textEl.addEventListener("keydown", (e) => {
+  if (loadedFont || e.isComposing) return;
+  if (e.metaKey || e.ctrlKey || e.altKey || e.key === "Tab" || e.key === "Shift") return;
+  if (e.key.length === 1) {
+    if (!(e.key in GLYPHS) && e.key !== "*" && e.key !== "\n") e.preventDefault();
+  } else if (![8, 13, 32, 35, 36, 37, 38, 39, 40, 46].includes(e.keyCode)) {
+    e.preventDefault();
+  }
+});
+
+function clearPreset() {
+  presetsEl.querySelectorAll("button").forEach((b) => { b.classList.remove("active"); b.setAttribute("aria-pressed", "false"); });
+}
+$("form").addEventListener("input", clearPreset);
+$("form").addEventListener("submit", (e) => e.preventDefault());
+textEl.addEventListener("input", render);
+gridXEl.addEventListener("input", render);
+gridYEl.addEventListener("input", render);
+totalXSymEl.addEventListener("change", render);
+totalYSymEl.addEventListener("change", render);
+localXSymEl.addEventListener("change", render);
+localYSymEl.addEventListener("change", render);
+
+PRESETS.forEach((p, i) => {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = i + 1;
+  btn.setAttribute("aria-label", `Load preset ${i + 1}`);
+  btn.setAttribute("aria-pressed", "false");
+  btn.addEventListener("click", () => {
+    textEl.value = p[0];
+    gridXEl.value = p[1];
+    gridYEl.value = p[2];
+    totalXSymEl.checked = !!p[3];
+    totalYSymEl.checked = !!p[4];
+    localXSymEl.checked = !!p[5];
+    localYSymEl.checked = !!p[6];
+    clearPreset();
+    btn.classList.add("active");
+    btn.setAttribute("aria-pressed", "true");
+    render();
+  });
+  presetsEl.appendChild(btn);
+});
+
+copyEl.addEventListener("click", async () => {
+  const txt = computeRows().join("\r\n");
+  try {
+    await navigator.clipboard.writeText(txt);
+    copyEl.textContent = "Copied!";
+  } catch {
+    alert("Copy failed. Please select the pattern text and copy it manually.");
+  }
+  setTimeout(() => { copyEl.textContent = "Copy plain text"; }, 1500);
+});
+
+presetsEl.querySelector("button").click();
+</script>
+</body>
+</html>
