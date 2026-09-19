@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>Ornamenta · Smit Patil</title>
-<meta name="description" content="Test ornamental fonts and compose repeating patterns. Load a local font, type glyphs, and adjust the grid and symmetry.">
+<meta name="description" content="Test ornamental fonts and compose repeating patterns. Ornamenta starts with the site's Ornements ADF ornaments; drop your own font, type glyphs, and adjust the grid and symmetry.">
 <style>
 @font-face {
   font-family: "Source Serif 4";
@@ -147,7 +147,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; border-top: 1
     <span>OTF, TTF, WOFF or WOFF2. Your font stays in this browser.</span>
     <input id="font-file" type="file" accept=".otf,.ttf,.woff,.woff2" aria-label="Choose an ornamental font">
   </label>
-  <p class="font-status" id="font-status" role="status">Showing SVG samples. Load a font to test its actual glyphs.</p>
+  <p class="font-status" id="font-status" role="status">Loading Ornements ADF, the site’s ornament font…</p>
   <div class="font-options" id="font-options" hidden>
     <label for="glyph-scale">Glyph size <input id="glyph-scale" type="range" min="50" max="200" value="100"><output id="glyph-scale-value" for="glyph-scale">100%</output></label>
     <button type="button" id="reset-font">Use SVG samples</button>
@@ -496,6 +496,25 @@ $("reset-font").addEventListener("click", () => {
   $("font-status").textContent = "Showing SVG samples. Load a font to test its actual glyphs.";
 });
 
+async function loadBundledFont() {
+  const request = ++fontRequest;
+  const status = $("font-status");
+  status.dataset.error = "false";
+  try {
+    const candidate = new FontFace("Ornements ADF", "url('../ornements-adf.woff')");
+    await candidate.load();
+    if (request !== fontRequest) return;
+    document.fonts.add(candidate);
+    loadedFont = candidate;
+    document.documentElement.style.setProperty("--ornament-font", `"${candidate.family}"`);
+    refreshFontKeys();
+    status.textContent = "Ornements ADF, the site’s ornament font. Drop another font to compare.";
+  } catch {
+    if (request !== fontRequest) return;
+    status.textContent = "Showing SVG samples. Load a font to test its actual glyphs.";
+  }
+}
+
 function state() {
   return {
     cellsX: Math.min(100, Math.max(1, parseInt(gridXEl.value, 10) || 1)),
@@ -669,6 +688,7 @@ copyEl.addEventListener("click", async () => {
 });
 
 presetsEl.querySelector("button").click();
+loadBundledFont();
 </script>
 </body>
 </html>
