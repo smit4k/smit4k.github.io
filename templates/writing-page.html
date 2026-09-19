@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "macros/breadcrumbs.html" as breadcrumbs %}
 {% import "macros/post_meta.html" as post_meta %}
+{% import "macros/admonitions.html" as admonitions %}
 
 {% block content %}
 {{ breadcrumbs::render(
@@ -19,6 +20,6 @@
 </header>
 <hr class="post-divider" />
 <article class="post-content">
-{{ page.content | safe }}
+{{ admonitions::render(content=page.content) }}
 </article>
 {% endblock content %}

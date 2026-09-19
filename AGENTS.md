@@ -4,7 +4,8 @@
 
 This is Smit Patil's personal homepage and writing site at `https://smitp.cc`.
 It uses Zola, Tera templates, plain CSS, and vanilla JavaScript modules. CI pins
-Zola **0.22.1**. There is no Node package manifest, bundler, or automated test suite.
+Zola **0.22.1**. There is no Node package manifest or bundler. Admonition rendering
+has a shell-based regression check that runs Zola directly.
 Do not introduce a framework or package manager for routine site changes.
 
 ## Source map
@@ -16,7 +17,8 @@ Do not introduce a framework or package manager for routine site changes.
 - `templates/index.html`: homepage, decorative banner, and three latest posts.
 - `templates/writing.html`: archive grouped by year.
 - `templates/writing-page.html`: article header, metadata, and content.
-- `templates/macros/`: shared breadcrumbs and post metadata.
+- `templates/macros/`: shared breadcrumbs, post metadata, and admonition rendering.
+- `templates/rss.xml`: RSS feed using the same admonition renderer as posts.
 - `templates/404.html`: not-found page.
 - `static/site.css`: layout, typography, theme variables, and responsive rules.
 - `static/code-copy.js` and `static/heading-links.js`: progressive enhancements.
@@ -33,6 +35,7 @@ zola --version
 zola check --skip-external-links
 zola build
 zola serve
+sh tests/admonitions.sh
 ```
 
 Use Zola 0.22.1 to match CI. `zola serve` provides the local preview, normally at

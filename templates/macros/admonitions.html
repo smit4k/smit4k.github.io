@@ -1,0 +1,51 @@
+{# Transform Zola's rendered HTML, preserving links, shortcodes and highlighting.
+   Track paragraphs because a fence need not have blank lines around it. #}
+{% macro render(content) -%}
+    {# Tera strings need a literal newline; backslash-n is not an escape. #}
+    {%- set newline = "
+" -%}
+    {%- set_global output = "" -%}
+    {%- set_global fences = [] -%}
+    {%- set_global paragraph = false -%}
+    {%- set_global protected = "" -%}
+    {%- for line in content | split(pat=newline) -%}
+        {%- set marker = line | regex_replace(pattern=`^<p>|</p>$`, rep="") | trim -%}
+        {%- if protected == "" and line is matching(`<(pre|code|script|style|textarea)(\s|>)|<!--`) -%}
+            {%- if line is matching(`<!--`) -%}
+                {%- set_global protected = "-->" -%}
+            {%- else -%}
+                {%- set_global protected = line | regex_replace(pattern=`(?s)^.*?<(pre|code|script|style|textarea)(?:\s|>).*$`, rep="</$1>") -%}
+            {%- endif -%}
+        {%- endif -%}
+        {%- if protected != "" -%}
+            {%- set_global output = output ~ line ~ newline -%}
+            {%- if protected in line -%}{%- set_global protected = "" -%}{%- endif -%}
+        {%- elif marker is matching(`^:{3,}(info|note|tip|important|warning|caution|danger)(?:[ \t]+.*)?$`) -%}
+            {%- set fence = marker | regex_replace(pattern=`^(:+).*$`, rep="$1") -%}
+            {%- set kind = marker | regex_replace(pattern=`^:+([a-z]+).*$`, rep="$1") -%}
+            {%- set title = marker | regex_replace(pattern=`^:+[a-z]+\s*`, rep="") -%}
+            {%- if title == "" -%}{%- set title = kind | capitalize -%}{%- endif -%}
+            {%- if paragraph -%}{%- set_global output = output ~ "</p>" ~ newline -%}{%- endif -%}
+            {%- set_global fences = fences | concat(with=fence) -%}
+            {%- set_global output = output ~ '<aside class="callout callout-' ~ kind ~ '"><p class="callout-title">' ~ title ~ '</p><div class="callout-body">' ~ newline -%}
+            {%- set_global paragraph = not line is ending_with("</p>") -%}
+            {%- if paragraph -%}{%- set_global output = output ~ "<p>" -%}{%- endif -%}
+        {%- elif marker is matching(`^:{3,}$`) and fences | length > 0 -%}
+            {%- if marker != fences | last -%}
+                {{- throw(message="Admonition closing fence must match its opener's colon count") -}}
+            {%- endif -%}
+            {%- set end = fences | length - 1 -%}
+            {%- set_global fences = fences | slice(end=end) -%}
+            {%- if paragraph -%}{%- set_global output = output ~ "</p>" ~ newline -%}{%- endif -%}
+            {%- set_global output = output ~ "</div></aside>" ~ newline -%}
+            {%- set_global paragraph = not line is ending_with("</p>") -%}
+            {%- if paragraph -%}{%- set_global output = output ~ "<p>" -%}{%- endif -%}
+        {%- else -%}
+            {%- set_global output = output ~ line ~ newline -%}
+            {%- if line is starting_with("<p>") -%}{%- set_global paragraph = true -%}{%- endif -%}
+            {%- if line is ending_with("</p>") -%}{%- set_global paragraph = false -%}{%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if fences | length > 0 -%}{{- throw(message="Unclosed admonition: add a matching ::: fence") -}}{%- endif -%}
+    {{- output | regex_replace(pattern=`<p>\s*</p>`, rep="") | safe -}}
+{%- endmacro render %}

@@ -52,6 +52,19 @@
     --color-callout-title: #dce9fb;
     --color-info-border: #2f4d77;
     --color-info-bg: #07101b;
+    --color-info-title: #dce9fb;
+    --color-tip-border: #426c50;
+    --color-tip-bg: #09150d;
+    --color-tip-title: #b8e4c4;
+    --color-warning-border: #8b6a32;
+    --color-warning-bg: #191307;
+    --color-warning-title: #f4d18c;
+    --color-danger-border: #924b4b;
+    --color-danger-bg: #1b0c0c;
+    --color-danger-title: #ffc1bc;
+    --color-important-border: #71538f;
+    --color-important-bg: #140d1c;
+    --color-important-title: #dec4f5;
     --color-selection-bg: #7eb3f8;
     --color-selection-text: #000;
 }
@@ -81,6 +94,19 @@
         --color-callout-title: #244061;
         --color-info-border: #b7cce8;
         --color-info-bg: #fff;
+        --color-info-title: #244061;
+        --color-tip-border: #88ae92;
+        --color-tip-bg: #f2faf4;
+        --color-tip-title: #285b36;
+        --color-warning-border: #b18a45;
+        --color-warning-bg: #fff9eb;
+        --color-warning-title: #76500e;
+        --color-danger-border: #c5837e;
+        --color-danger-bg: #fff4f3;
+        --color-danger-title: #913c35;
+        --color-important-border: #ad91c7;
+        --color-important-bg: #faf5ff;
+        --color-important-title: #69418c;
         --color-selection-bg: #7eb3f8;
         --color-selection-text: #000;
     }
@@ -547,9 +573,41 @@ th {
     margin-bottom: 0;
 }
 
-.callout-info {
+/* Match the configured Catppuccin Mocha syntax colors in either system theme. */
+.callout pre {
+    background: #1e1e2e !important;
+}
+
+.callout-info,
+.callout-note {
+    --color-callout-title: var(--color-info-title);
     border-color: var(--color-info-border);
     background: var(--color-info-bg);
+}
+
+.callout-tip {
+    --color-callout-border: var(--color-tip-border);
+    --color-callout-bg: var(--color-tip-bg);
+    --color-callout-title: var(--color-tip-title);
+}
+
+.callout-warning {
+    --color-callout-border: var(--color-warning-border);
+    --color-callout-bg: var(--color-warning-bg);
+    --color-callout-title: var(--color-warning-title);
+}
+
+.callout-danger,
+.callout-caution {
+    --color-callout-border: var(--color-danger-border);
+    --color-callout-bg: var(--color-danger-bg);
+    --color-callout-title: var(--color-danger-title);
+}
+
+.callout-important {
+    --color-callout-border: var(--color-important-border);
+    --color-callout-bg: var(--color-important-bg);
+    --color-callout-title: var(--color-important-title);
 }
 
 img {
