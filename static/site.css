@@ -20,6 +20,14 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Ornements ADF";
+    src: url("/ornements-adf.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     color-scheme: dark;
     --color-bg: #000;
@@ -125,7 +133,6 @@ body {
     min-height: calc(100vh - 6rem);
     align-items: center;
     align-content: center;
-    transform: translateY(-2rem);
 }
 
 .home-banner-frame {
@@ -134,10 +141,27 @@ body {
 }
 
 .home-banner {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     width: 100%;
-    height: auto;
-    max-width: none;
-    display: block;
+    font-family: "Ornements ADF", Georgia, serif;
+    font-size: calc(var(--home-banner-width) / 12);
+    font-weight: 400;
+    font-style: normal;
+    font-synthesis: none;
+    font-kerning: none;
+    font-variant-ligatures: none;
+    line-height: 1;
+    color: var(--color-strong);
+    user-select: none;
+}
+
+.home-banner > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    min-width: 0;
 }
 
 .home-content {
