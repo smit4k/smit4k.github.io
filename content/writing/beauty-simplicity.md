@@ -6,7 +6,7 @@ description: Complexity has to live somewhere, but not with the user
 tags:
 ---
 
-*"An idiot admires complexity, a genius admires simplicity*
+*"An idiot admires complexity, a genius admires simplicity*"
 
 -- Terry Davis, Creator of TempleOS
 
