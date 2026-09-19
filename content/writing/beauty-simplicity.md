@@ -6,7 +6,8 @@ description: Complexity has to live somewhere, but not with the user
 tags:
 ---
 
-*"An idiot admires complexity, a genius admires simplicity, a physicist tries to make it simple"*
+*"An idiot admires complexity, a genius admires simplicity*
+
 -- Terry Davis, Creator of TempleOS
 
 I really hate when something is unnecessarily complex, it could be a guide, a piece of software, or just about any machine or tool. It fucks with my mind and makes me leave it entirely. 
