@@ -161,6 +161,10 @@ body {
     align-content: center;
 }
 
+.home-view-no-banner {
+    grid-template-columns: minmax(0, var(--home-content-width));
+}
+
 .home-banner-frame {
     width: 100%;
     min-height: 0;
