@@ -1,229 +1,39 @@
 {% extends "base.html" %}
 {% block container_class %} container-home{% endblock container_class %}
 {% block content %}
-<div class="home-view home-view-no-banner">
-    <!-- Temporarily disabled ornament decoration.
-    <div class="home-banner-frame">
-        <div class="home-banner" aria-hidden="true">
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-            <span>q</span>
-            <span>Q</span>
-        </div>
-    </div>
-    -->
+<div class="home-view">
+    <pre class="home-ascii" aria-hidden="true">                       ___ .
+                   _~"|  ~~ ~.\.~
+                  /   :   /   /  \_
+                 ?""  ;  `  ,'     )
+        /-,      /    .   .     .  |
+       /   ~-_  /   dp   .    .    |
+    .%"":    .? |:    . .   .      |
+   %    '.   . \|:. . ..  .   .   /
+ /  '.   '.: : :| :   .. . .    _/
+/ ~~~::.   .:: ::. . .::.:. ..'~
+\::... `'.. : : : " . :. .  ~~|    _____
+(:::. ..   '.: .:.::. : . : "/__-""     --
+ )"".&gt;  --~~~__. ::::*## :.:.:)  :    .:` ~\
+|..::'      &gt;&gt;    #######  '.: .' .  .`     ?
+\_.___      :''&gt; ######### ::.".    ~ ..~'" |,
+     _"&gt;~____~~::. #* )#### :  ..~       .   )
+    /:.:'';.:::_-  _-#####*:;: ::&gt;,,          }
+   o__o___q~_-" _-"###### .:.''     ..~~ ~    |
+  ( o() &amp;@&amp;__--"  *::####::"  ";..    ~~...::.)
+ (o&amp; O&amp; O?S).`   .:':::*: :      ~~~...     "/
+   oS %@&amp;&gt;/    .:'  ::::: :.       .~  "'.  {
+   \~*~~""   __:/   "::::..L        ~     ''/
+    |::'    /##)     :':::::\         .   %
+    \:; .  |#/       : :::::::-___      -"
+     \::::: |        : :::::::::::\----"
+     \::::::|:.      : :::::::::::|
+     \::::::|'     . : ::::::::::::|
+      -::::/ \     :.'::::::::::::/
+        ~__/  \.   ;:.::::::::::_/
+               \::.::::::::::::/
+                 --_;::::::_-~/
+                     """"""</pre>
     <div class="home-content">
         <h1 class="title">Smit Patil</h1>
         <p>
