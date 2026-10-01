@@ -24,9 +24,20 @@ links become usable after both the website and matching records are published.
 See [Standard.site verification](https://standard.site/docs/verification/) and
 [Bluesky's integration](https://docs.bsky.app/showcase#standardsite).
 
-Build with the production URL before publishing the generated records through
-an authenticated AT Protocol client. Publishing records is separate from the
-Zola build and website deployment.
+The deployment workflow automatically syncs these records after GitHub Pages
+deploys successfully. Add an app password for the `smitp.cc` account as a
+repository Actions secret named `PDS_APP_PASSWORD` under **Settings → Secrets
+and variables → Actions**. Then push to `main` or manually run **Deploy GitHub
+Pages**. The first run creates all records; later runs update them using the
+same keys. Posts already created in PDSls with those keys are updated too.
+
+Sync uses Bash, `curl`, and `jq`, resolves the current PDS from the account's
+DID, and publishes the exact JSON from that deployment's build. Missing
+credentials or API errors fail the sync step while leaving the deployed site
+available. Rerun the workflow after fixing the error. Removed posts are not
+automatically deleted from the PDS.
+
+Run `bash tests/pds-sync.sh` for offline sync checks using a mocked PDS.
 
 ## Admonitions
 

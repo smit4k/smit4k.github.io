@@ -23,7 +23,13 @@ jobs:
         with:
           tool: zola@0.22.1
       - run: sh tests/admonitions.sh
+      - run: bash tests/pds-sync.sh
       - run: zola build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: standard-site-records
+          path: public/standard-site.json
+          if-no-files-found: error
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
@@ -37,3 +43,12 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: standard-site-records
+          path: public
+      - name: Sync Standard.site records to PDS
+        env:
+          PDS_APP_PASSWORD: ${{ secrets.PDS_APP_PASSWORD }}
+        run: bash scripts/sync-standard-site.sh
