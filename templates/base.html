@@ -2,25 +2,39 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta property="og:title" content="Smit's Homepage" />
-        <meta property="og:type" content="website" />
+        {% set social_title = "Smit's Homepage" %}
+        {% set social_description = config.description %}
+        {% if page is defined %}
+        {% set social_title = page.title %}
+        {% set social_description = page.description | default(value=config.description, boolean=true) %}
+        {% elif section is defined %}
+        {% set social_title = section.title | default(value=social_title, boolean=true) %}
+        {% endif %}
+        <meta name="description" content="{{ social_description }}" />
+        <meta property="og:title" content="{{ social_title }}" />
+        <meta property="og:type" content="{% if page is defined %}article{% else %}website{% endif %}" />
         {% if current_url is defined %}
         <meta property="og:url" content="{{ current_url }}" />
         {% else %}
         <meta property="og:url" content="{{ get_url(path='404.html') }}" />
         {% endif %}
-        <meta property="og:description" content="{{ config.description }}" />
+        <meta property="og:description" content="{{ social_description }}" />
         <meta property="og:image" content="{{ get_url(path='og.png') }}" />
         <meta property="og:image:alt" content="White abstract artwork and Smit's Homepage in white text on a black background." />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Smit's Homepage" />
-        <meta name="twitter:description" content="{{ config.description }}" />
+        <meta name="twitter:title" content="{{ social_title }}" />
+        <meta name="twitter:description" content="{{ social_description }}" />
         <meta name="twitter:image" content="{{ get_url(path='og.png') }}" />
         <meta name="twitter:image:alt" content="White abstract artwork and Smit's Homepage in white text on a black background." />
-        <title>Smit's Blog</title>
+        <title>{{ social_title }}</title>
+        <link rel="site.standard.publication" href="at://{{ config.extra.standard_site_repo }}/site.standard.publication/smitp-cc" />
+        {% if page is defined and page.date %}
+        <link rel="site.standard.document" href="at://{{ config.extra.standard_site_repo }}/site.standard.document/{{ page.slug }}" />
+        <meta property="article:published_time" content="{{ page.date | date(format='%Y-%m-%dT%H:%M:%SZ', timezone='UTC') }}" />
+        {% endif %}
         <link
             rel="stylesheet"
             href="{{ get_url(path='site.css', cachebust=true) }}"

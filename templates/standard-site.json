@@ -1,0 +1,32 @@
+{%- set publication_uri = "at://" ~ config.extra.standard_site_repo ~ "/site.standard.publication/smitp-cc" -%}
+{
+  "records": [
+    {
+      "repo": {{ config.extra.standard_site_repo | json_encode() | safe }},
+      "collection": "site.standard.publication",
+      "rkey": "smitp-cc",
+      "record": {
+        "$type": "site.standard.publication",
+        "url": {{ config.base_url | trim_end_matches(pat='/') | json_encode() | safe }},
+        "name": {{ config.title | json_encode() | safe }},
+        "description": {{ config.description | json_encode() | safe }},
+        "preferences": {"showInDiscover": true}
+      }
+    }
+    {% for page in pages %},
+    {
+      "repo": {{ config.extra.standard_site_repo | json_encode() | safe }},
+      "collection": "site.standard.document",
+      "rkey": {{ page.slug | json_encode() | safe }},
+      "record": {
+        "$type": "site.standard.document",
+        "site": {{ publication_uri | json_encode() | safe }},
+        "path": {{ page.path | json_encode() | safe }},
+        "title": {{ page.title | json_encode() | safe }},
+        "description": {{ page.description | default(value=config.description, boolean=true) | json_encode() | safe }},
+        "publishedAt": {{ page.date | date(format='%Y-%m-%dT%H:%M:%SZ', timezone='UTC') | json_encode() | safe }}
+      }
+    }
+    {% endfor %}
+  ]
+}

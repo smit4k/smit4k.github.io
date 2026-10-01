@@ -12,10 +12,10 @@ build_search_index = true
 
 # Generate an RSS feed at /rss.xml
 generate_feeds = true
-feed_filenames = ["rss.xml"]
+feed_filenames = ["rss.xml", "standard-site.json"]
 
 [markdown.highlighting]
 theme = "catppuccin-mocha"
 
 [extra]
-# Put all your custom variables here
+standard_site_repo = "did:plc:dpce2af4fcwxc62aienkv7gu"

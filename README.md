@@ -8,6 +8,26 @@ zola build
 zola serve
 ```
 
+## Standard.site and Bluesky previews
+
+Posts expose their own title and description in Open Graph metadata, using the
+existing `og.png` card image. Standard.site verification is served at
+`/.well-known/site.standard.publication`, with publication and document links
+in the HTML head. These reference the `smitp.cc` account's DID in
+`zola.toml`; the publication key is `smitp-cc` and document keys are post slugs.
+Keep those keys stable after publishing.
+
+Zola also builds `public/standard-site.json`: a publication record and one
+document record per dated post, ready for `com.atproto.repo.putRecord`.
+Generating JSON does **not** publish records to AT Protocol. The verification
+links become usable after both the website and matching records are published.
+See [Standard.site verification](https://standard.site/docs/verification/) and
+[Bluesky's integration](https://docs.bsky.app/showcase#standardsite).
+
+Build with the production URL before publishing the generated records through
+an authenticated AT Protocol client. Publishing records is separate from the
+Zola build and website deployment.
+
 ## Admonitions
 
 Drop a Markdown post with the usual Zola front matter into `content/writing/`.
