@@ -15,8 +15,9 @@ generate_feeds = true
 feed_filenames = ["rss.xml"]
 
 [markdown.highlighting]
-light_theme = "catppuccin-latte"
-dark_theme = "catppuccin-mocha"
+extra_themes = ["syntax-themes/vscode-dark-modern.json"]
+light_theme = "one-light"
+dark_theme = "Dark Modern"
 
 [extra]
 # Put all your custom variables here
