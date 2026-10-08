@@ -15,7 +15,8 @@ generate_feeds = true
 feed_filenames = ["rss.xml"]
 
 [markdown.highlighting]
-theme = "catppuccin-mocha"
+light_theme = "catppuccin-latte"
+dark_theme = "catppuccin-mocha"
 
 [extra]
 # Put all your custom variables here
