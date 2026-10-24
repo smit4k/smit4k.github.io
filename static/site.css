@@ -301,6 +301,30 @@ strong {
     font-size: inherit;
 }
 
+.post-navigation {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-navigation .breadcrumbs {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.post-pagination {
+    display: flex;
+    flex-shrink: 0;
+    gap: 0.75rem;
+}
+
+.post-pagination span {
+    color: var(--color-muted);
+    opacity: 0.45;
+}
+
 .all-posts-header {
     text-align: left;
 }

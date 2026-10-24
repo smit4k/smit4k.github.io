@@ -5,12 +5,26 @@
 {% import "macros/reading_toc.html" as reading_toc %}
 
 {% block content %}
+<div class="post-navigation">
 {{ breadcrumbs::render(
     parent_label="writing",
     parent_url=get_url(path='@/writing/_index.md'),
     current_label=page.title,
     current_url=page.permalink
 ) }}
+    <nav class="post-pagination" aria-label="Other posts">
+        {% if page.higher %}
+        <a href="{{ page.higher.permalink | safe }}" rel="prev" aria-label="Older post: {{ page.higher.title }}" title="Older post: {{ page.higher.title }}">←</a>
+        {% else %}
+        <span aria-disabled="true" aria-label="No older post">←</span>
+        {% endif %}
+        {% if page.lower %}
+        <a href="{{ page.lower.permalink | safe }}" rel="next" aria-label="Newer post: {{ page.lower.title }}" title="Newer post: {{ page.lower.title }}">→</a>
+        {% else %}
+        <span aria-disabled="true" aria-label="No newer post">→</span>
+        {% endif %}
+    </nav>
+</div>
 
 <header class="post-header">
     <h1>{{ page.title }}</h1>
