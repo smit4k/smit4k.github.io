@@ -33,6 +33,7 @@
     --color-heading-anchor: #777;
     --color-heading-anchor-hover: #ccc;
     --color-code-bg: #080808;
+    --color-toc-highlight: #1a1a1a;
     --color-button-bg: #111;
     --color-button-hover: #f0f0f0;
     --color-button-hover-border: #666;
@@ -75,6 +76,7 @@
         --color-heading-anchor: #777;
         --color-heading-anchor-hover: #555;
         --color-code-bg: #f7f7f7;
+        --color-toc-highlight: #f7f7f7;
         --color-button-bg: #fff;
         --color-button-hover: #000;
         --color-button-hover-border: #999;
@@ -412,10 +414,106 @@ strong {
     border-top: 1px solid var(--color-border);
 }
 
+.post-body {
+    position: relative;
+}
+
+.reading-toc-slot {
+    display: none;
+}
+
+@media (min-width: 72rem) {
+    .reading-toc-slot {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: calc(100% + 2rem);
+        bottom: 0;
+        width: 14rem;
+    }
+}
+
+.reading-toc {
+    position: sticky;
+    top: 2rem;
+    display: grid;
+    grid-template-columns: 2px minmax(0, 1fr);
+    gap: 0.75rem;
+    max-height: calc(100vh - 4rem);
+    overflow: hidden auto;
+    padding: 0.25rem;
+}
+
+.reading-toc[hidden] {
+    display: none;
+}
+
+.reading-toc__progress-track {
+    position: relative;
+    background: var(--color-border);
+}
+
+.reading-toc__progress-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--color-link);
+    transform: scaleY(var(--reading-progress, 0));
+    transform-origin: top;
+}
+
+.reading-toc__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.reading-toc__list li {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+.reading-toc__link {
+    display: block;
+    padding: 0.4rem 0.35rem;
+    color: var(--color-muted);
+    border-radius: 0;
+    transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.reading-toc__level-3 a { padding-left: 1rem; }
+.reading-toc__level-4 a { padding-left: 1.65rem; }
+
+.reading-toc__link:hover,
+.reading-toc__link:focus-visible {
+    color: var(--color-strong);
+    background: var(--color-toc-highlight);
+}
+
+.reading-toc__link[aria-current] {
+    color: var(--color-link);
+    background: var(--color-toc-highlight);
+    transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reading-toc__link,
+    .reading-toc__progress-fill {
+        transition: none;
+    }
+
+    .reading-toc__link[aria-current] { transform: none; }
+}
+
+@media print {
+    .reading-toc-slot,
+    .reading-toc-end-space { display: none; }
+}
+
 .post-content h2[id],
 .post-content h3[id],
 .post-content h4[id] {
-    scroll-margin-top: 1rem;
+    scroll-margin-top: min(25vh, 10rem);
 }
 
 .heading-anchor {

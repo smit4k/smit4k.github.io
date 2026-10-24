@@ -1,0 +1,8 @@
+{% macro links(headings) %}
+{% for heading in headings %}
+{% if heading.level >= 2 and heading.level <= 4 %}
+<li class="reading-toc__level-{{ heading.level }}"><a class="reading-toc__link" href="#{{ heading.id | escape }}">{{ heading.title | escape }}</a></li>
+{% endif %}
+{% if heading.children %}{{ reading_toc::links(headings=heading.children) }}{% endif %}
+{% endfor %}
+{% endmacro links %}

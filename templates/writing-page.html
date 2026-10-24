@@ -2,6 +2,7 @@
 {% import "macros/breadcrumbs.html" as breadcrumbs %}
 {% import "macros/post_meta.html" as post_meta %}
 {% import "macros/admonitions.html" as admonitions %}
+{% import "macros/reading_toc.html" as reading_toc %}
 
 {% block content %}
 {{ breadcrumbs::render(
@@ -19,7 +20,21 @@
     {% endif %}
 </header>
 <hr class="post-divider" />
+<div class="post-body">
+{% set toc_links = reading_toc::links(headings=page.toc) %}
+{% if toc_links | trim %}
+<aside class="reading-toc-slot">
+    <nav class="reading-toc" aria-label="Table of contents">
+        <div class="reading-toc__progress-track" aria-hidden="true">
+            <div class="reading-toc__progress-fill"></div>
+        </div>
+        <ol class="reading-toc__list">{{ toc_links | safe }}</ol>
+    </nav>
+</aside>
+<script type="module" src="{{ get_url(path='reading-toc.js', cachebust=true) }}"></script>
+{% endif %}
 <article class="post-content">
 {{ admonitions::render(content=page.content) }}
 </article>
+</div>
 {% endblock content %}
