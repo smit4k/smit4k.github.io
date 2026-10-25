@@ -22,4 +22,4 @@ dark_theme = "Dark Modern"
 [extra]
 lastfm_user = "smitsmusic"
 # Browser-visible API key; never put your Last.fm API secret here.
-lastfm_api_key = ""
+lastfm_api_key = "ad9b4b981e49f58d9e8c33457cf76e15"
