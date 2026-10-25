@@ -86,7 +86,7 @@ function setup(data, key = "test-key") {
     state.refresh();
     await flush();
     assert.equal(state.rows.length, 3, "Idle state shows three recent tracks");
-    assert.ok(state.rows.every((row) => !row.fields.className), "Idle state has no now-playing divider");
+    assert.ok(state.rows.every((row) => row.fields[".music-playing"].hidden), "Idle tracks have no now-playing label");
     state.hidden = true;
     state.refresh();
     assert.equal(state.calls.length, 2, "Hidden pages do not poll");
