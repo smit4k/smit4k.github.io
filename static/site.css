@@ -381,8 +381,8 @@ strong {
 .music-cover {
     display: grid;
     place-items: center;
-    flex: 0 0 3.5rem;
-    height: 3.5rem;
+    flex: 0 0 3.75rem;
+    height: 3.75rem;
     overflow: hidden;
     background: var(--color-code-bg);
     color: var(--color-muted);
