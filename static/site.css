@@ -919,7 +919,7 @@ ol + hr {
 .post-year-group a:hover,
 .breadcrumbs a:hover,
 .all-posts-header a:hover,
-.section-heading a:hover {
+.section-heading a:not(.music-profile):hover {
     color: var(--color-strong);
 }
 
