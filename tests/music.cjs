@@ -42,7 +42,8 @@ function setup(data, key = "test-key") {
         querySelector: (selector) => selectors[selector] };
     runInNewContext(script, {
         URL, URLSearchParams, AbortSignal,
-        document: { querySelector: () => music, get hidden() { return state.hidden; } },
+        document: { querySelector: (selector) => selector === ".music-section" ? music : selectors[selector],
+            get hidden() { return state.hidden; } },
         window: { setInterval(callback, delay) { state.refresh = callback; assert.equal(delay, 60_000); } },
         async fetch(url, options) {
             state.calls.push(url);

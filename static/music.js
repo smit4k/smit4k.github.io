@@ -13,7 +13,7 @@ if (music?.dataset.lastfmApiKey) {
     const list = music.querySelector(".music-list");
     const status = music.querySelector(".music-status");
     const template = music.querySelector("template");
-    const profile = music.querySelector(".music-profile").href;
+    const profile = document.querySelector(".music-profile").href;
     const endpoint = new URL("https://ws.audioscrobbler.com/2.0/");
     endpoint.search = new URLSearchParams({
         method: "user.getrecenttracks",

@@ -43,12 +43,20 @@
             This is my homepage, where I post my (mostly) technical writing posts.
         </p>
         <div class="section-heading">
-            <h2>Writing</h2>
-            <p>
+            <h2 class="home-section-title">
+                <button id="home-writing-tab" type="button" aria-pressed="true" aria-controls="home-writing" disabled>Writing</button>
+                <button id="home-music-tab" type="button" aria-pressed="false" aria-controls="home-music" hidden>Last.fm</button>
+            </h2>
+            <p id="home-writing-links">
                 <a href="{{ get_url(path='@/writing/_index.md') }}">view all</a>
                 <a href="{{ get_url(path='rss.xml') }}">rss</a>
             </p>
+            <p id="home-music-links" hidden>
+                <a class="music-profile" href="https://www.last.fm/user/{{ config.extra.lastfm_user }}">profile ↗</a>
+            </p>
         </div>
+        <div class="home-panels">
+        <div id="home-writing" aria-label="Writing">
         {% set writing = get_section(path="writing/_index.md") %}
         <ul class="post-list">
             {% for page in writing.pages | slice(end=3) %}
@@ -65,13 +73,10 @@
             </li>
             {% endfor %}
         </ul>
-        <section class="music-section" aria-labelledby="music-heading"
+        </div>
+        <div id="home-music" class="music-section" aria-label="Last.fm" hidden
             data-lastfm-user="{{ config.extra.lastfm_user }}"
             data-lastfm-api-key="{{ config.extra.lastfm_api_key }}">
-            <div class="section-heading">
-                <h2 id="music-heading">Music</h2>
-                <p><a class="music-profile" href="https://www.last.fm/user/{{ config.extra.lastfm_user }}">last.fm ↗</a></p>
-            </div>
             <p class="music-status" role="status">Recent listening is available on Last.fm.</p>
             <ul class="music-list" aria-label="Recent tracks" hidden></ul>
             <template id="music-track-template">
@@ -88,7 +93,9 @@
                     </div>
                 </li>
             </template>
-        </section>
+        </div>
+        </div>
+        <noscript><p><a href="https://www.last.fm/user/{{ config.extra.lastfm_user }}">Last.fm profile</a></p></noscript>
         <hr />
         <a href="https://github.com/smit4k/">github</a> |
         <a href="mailto:smit@smitp.cc">email</a> |
@@ -96,5 +103,6 @@
     </div>
 </div>
 <script type="module" src="{{ get_url(path='ascii-reveal.js', cachebust=true) }}"></script>
+<script type="module" src="{{ get_url(path='home-sections.js', cachebust=true) }}"></script>
 <script type="module" src="{{ get_url(path='music.js', cachebust=true) }}"></script>
 {% endblock content %}
