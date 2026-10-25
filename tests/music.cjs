@@ -33,7 +33,6 @@ function setup(data, key = "test-key") {
         };
         return {
             fields,
-            classList: { add(value) { fields.className = value; } },
             querySelector: (selector) => fields[selector],
         };
     } } } };
@@ -64,7 +63,6 @@ function setup(data, key = "test-key") {
     await flush();
     assert.equal(state.rows.length, 3, "Now playing plus exactly two completed tracks");
     assert.deepEqual(state.rows.map((row) => row.fields[".music-title"].textContent), ["Current", "Previous", "Earlier"]);
-    assert.equal(state.rows[0].fields.className, "is-playing");
     assert.equal(state.rows[0].fields[".music-playing"].hidden, false);
     assert.equal(state.rows[1].fields[".music-playing"].hidden, true);
     assert.equal(state.rows[0].fields[".music-time"].hidden, true, "Now-playing tracks have no completed scrobble time");

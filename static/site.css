@@ -401,11 +401,6 @@ strong {
     border-radius: 0;
 }
 
-.is-playing .music-cover {
-    flex-basis: 4.5rem;
-    height: 4.5rem;
-}
-
 .music-details {
     flex: 1;
     min-width: 0;

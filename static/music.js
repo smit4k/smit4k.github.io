@@ -33,7 +33,6 @@ if (music?.dataset.lastfmApiKey) {
         row.querySelector(".music-album").textContent = track.album?.["#text"] || "Unknown album";
 
         if (playing) {
-            row.classList.add("is-playing");
             row.querySelector(".music-playing").hidden = false;
         }
 
