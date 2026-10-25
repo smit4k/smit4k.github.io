@@ -14,6 +14,7 @@ if (music?.dataset.lastfmApiKey) {
     const status = music.querySelector(".music-status");
     const template = music.querySelector("template");
     const profile = document.querySelector(".music-profile").href;
+    const relativeTime = new Intl.RelativeTimeFormat("en", { style: "short" });
     const endpoint = new URL("https://ws.audioscrobbler.com/2.0/");
     endpoint.search = new URLSearchParams({
         method: "user.getrecenttracks",
@@ -34,6 +35,22 @@ if (music?.dataset.lastfmApiKey) {
         if (playing) {
             row.classList.add("is-playing");
             row.querySelector(".music-playing").hidden = false;
+        }
+
+        const date = new Date(Number(track.date?.uts) * 1000);
+        if (!playing && date.getTime() > 0) {
+            const seconds = Math.max(0, (Date.now() - date.getTime()) / 1000);
+            const unit = [
+                [31_536_000, "year"], [2_592_000, "month"], [604_800, "week"],
+                [86_400, "day"], [3600, "hour"], [60, "minute"],
+            ].find(([duration]) => seconds >= duration);
+            const time = row.querySelector(".music-time");
+            time.textContent = unit
+                ? relativeTime.format(-Math.floor(seconds / unit[0]), unit[1])
+                : "just now";
+            time.dateTime = date.toISOString();
+            time.title = date.toLocaleString();
+            time.hidden = false;
         }
 
         const artwork = Array.isArray(track.image)
