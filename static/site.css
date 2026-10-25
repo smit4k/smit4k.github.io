@@ -320,6 +320,12 @@ strong {
     gap: 0.75rem;
 }
 
+.post-pagination a:hover,
+.post-pagination a:focus-visible {
+    color: var(--color-strong);
+    text-decoration: none;
+}
+
 .post-pagination span {
     color: var(--color-muted);
     opacity: 0.45;
