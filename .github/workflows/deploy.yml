@@ -24,6 +24,7 @@ jobs:
           tool: zola@0.22.1
       - run: sh tests/admonitions.sh
       - run: sh tests/post-navigation.sh
+      - run: node tests/music.cjs
       - run: zola build
       - uses: actions/upload-pages-artifact@v3
         with:

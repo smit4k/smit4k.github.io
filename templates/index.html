@@ -65,6 +65,30 @@
             </li>
             {% endfor %}
         </ul>
+        <section class="music-section" aria-labelledby="music-heading"
+            data-lastfm-user="{{ config.extra.lastfm_user }}"
+            data-lastfm-api-key="{{ config.extra.lastfm_api_key }}">
+            <div class="section-heading">
+                <h2 id="music-heading">Music</h2>
+                <p><a class="music-profile" href="https://www.last.fm/user/{{ config.extra.lastfm_user }}">last.fm ↗</a></p>
+            </div>
+            <p class="music-status" role="status">Recent listening is available on Last.fm.</p>
+            <ul class="music-list" aria-label="Recent tracks" hidden></ul>
+            <template id="music-track-template">
+                <li class="music-track">
+                    <span class="music-cover" aria-hidden="true">
+                        <span>♪</span>
+                        <img alt="" width="72" height="72" decoding="async" hidden />
+                    </span>
+                    <div class="music-details">
+                        <span class="music-playing" hidden>Now playing</span>
+                        <a class="music-title"></a>
+                        <span class="music-artist"></span>
+                        <span class="music-album"></span>
+                    </div>
+                </li>
+            </template>
+        </section>
         <hr />
         <a href="https://github.com/smit4k/">github</a> |
         <a href="mailto:smit@smitp.cc">email</a> |
@@ -72,4 +96,5 @@
     </div>
 </div>
 <script type="module" src="{{ get_url(path='ascii-reveal.js', cachebust=true) }}"></script>
+<script type="module" src="{{ get_url(path='music.js', cachebust=true) }}"></script>
 {% endblock content %}

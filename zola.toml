@@ -20,4 +20,6 @@ light_theme = "one-light"
 dark_theme = "Dark Modern"
 
 [extra]
-# Put all your custom variables here
+lastfm_user = "smitsmusic"
+# Browser-visible API key; never put your Last.fm API secret here.
+lastfm_api_key = ""
