@@ -176,6 +176,20 @@ body {
     margin-top: 0;
 }
 
+.home-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+.home-footer p {
+    margin: 0;
+}
+
+.home-footer p:last-child {
+    margin-left: auto;
+}
+
 h1,
 h2,
 h3,
