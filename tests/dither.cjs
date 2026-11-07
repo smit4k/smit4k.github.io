@@ -31,13 +31,12 @@ function setup({ webgl = true, compiled = true, linked = true, reduced = false }
     }, { get: (object, key) => object[key] ?? (() => {}) });
     const canvas = target({ getContext: () => webgl ? gl : null });
     const container = target({ clientWidth: 304, clientHeight: 448, append(element) { this.canvas = element; } });
-    const toggle = target({ hidden: true });
     const motion = target({ matches: reduced });
     const theme = target({ matches: false });
     const document = target({
         hidden: false,
         createElement: () => canvas,
-        querySelector: (selector) => selector === ".home-dither" ? container : toggle,
+        querySelector: (selector) => selector === ".home-dither" ? container : null,
     });
     const window = target();
     const style = { color: "rgb(126, 179, 248)", backgroundColor: "rgb(0, 0, 0)" };
@@ -57,7 +56,7 @@ function setup({ webgl = true, compiled = true, linked = true, reduced = false }
         },
     });
     return {
-        container, canvas, toggle, motion, theme, document, window, style, frames, uniforms,
+        container, canvas, motion, theme, document, window, style, frames, uniforms,
         get draws() { return draws; }, get deleted() { return deleted; },
         get disconnected() { return disconnected; },
         resize: () => resize(), intersect: (visible) => intersect([{ isIntersecting: visible }]),
@@ -72,7 +71,6 @@ function setup({ webgl = true, compiled = true, linked = true, reduced = false }
 for (const options of [{ webgl: false }, { compiled: false }, { linked: false }]) {
     const state = setup(options);
     assert.equal(state.container.canvas, undefined, "An unavailable renderer leaves the CSS fallback visible");
-    assert.equal(state.toggle.hidden, true);
     assert.equal(state.frames.size, 0);
     if (options.webgl !== false) assert.equal(state.deleted, 1);
 }
@@ -87,18 +85,13 @@ s.tick();
 s.tick();
 assert.ok(s.uniforms.time > 0);
 const time = s.uniforms.time;
-s.toggle.events.click();
-assert.equal(s.toggle.textContent, "Play animation");
-assert.equal(s.frames.size, 0, "Pause cancels animation rather than continuing to render a frozen frame");
-assert.equal(s.uniforms.time, time);
 assert.deepEqual(Object.keys(s.container.events), [], "The banner has no pointer interaction");
 s.style.color = "rgb(31, 111, 186)";
 s.style.backgroundColor = "rgb(255, 255, 255)";
 s.theme.events.change();
 assert.deepEqual(s.uniforms.waveColor, [31 / 255, 111 / 255, 186 / 255]);
 assert.deepEqual(s.uniforms.backgroundColor, [1, 1, 1]);
-assert.equal(s.uniforms.time, time, "A paused banner repaints in the new theme without advancing");
-s.toggle.events.click();
+assert.equal(s.uniforms.time, time, "Theme changes repaint without advancing the animation");
 assert.equal(s.frames.size, 1);
 s.document.hidden = true;
 s.document.events.visibilitychange();
@@ -119,7 +112,6 @@ assert.equal(s.frames.size, 1);
 s.motion.matches = true;
 s.motion.events.change();
 assert.equal(s.frames.size, 0);
-assert.equal(s.toggle.hidden, true);
 const r = setup({ reduced: true });
 assert.ok(r.draws > 0, "Reduced motion still displays the artwork");
 assert.equal(r.frames.size, 0, "Reduced motion never starts an animation loop");
@@ -133,7 +125,6 @@ s.canvas.events.webglcontextlost({ preventDefault() {} });
 assert.equal(s.canvas.hidden, true);
 assert.equal(s.frames.size, 0);
 assert.equal(s.disconnected, 2);
-assert.equal(s.toggle.hidden, true);
 const draws = s.draws;
 s.theme.events.change();
 assert.equal(s.draws, draws, "A lost context stays on the fallback");

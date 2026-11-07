@@ -182,30 +182,6 @@ body {
     display: none;
 }
 
-.dither-toggle {
-    position: absolute;
-    right: 0.75rem;
-    bottom: -0.25rem;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg);
-    color: var(--color-link);
-    font: inherit;
-    font-size: 0.8rem;
-    cursor: pointer;
-    opacity: 0;
-}
-
-.home-banner:hover .dither-toggle,
-.dither-toggle:focus-visible {
-    opacity: 1;
-}
-
-.dither-toggle:focus-visible {
-    outline: 1px solid var(--color-focus);
-    outline-offset: 2px;
-}
-
 .home-content {
     width: 100%;
 }

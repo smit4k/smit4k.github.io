@@ -109,10 +109,8 @@ function installDither(gl, canvas, container) {
         .map((name) => [name, gl.getUniformLocation(program, name)]));
     container.append(canvas);
 
-    const toggle = document.querySelector(".dither-toggle");
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const theme = matchMedia("(prefers-color-scheme: light)");
-    let paused = false;
     let visible = true;
     let lost = false;
     let frame = 0;
@@ -125,14 +123,13 @@ function installDither(gl, canvas, container) {
         lastTime = now;
         gl.uniform1f(uniforms.time, time);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
-        if (!paused && !motion.matches) frame = requestAnimationFrame(draw);
+        if (!motion.matches) frame = requestAnimationFrame(draw);
     }
 
     function sync() {
         cancelAnimationFrame(frame);
         frame = 0;
         lastTime = 0;
-        toggle.hidden = motion.matches || lost;
         if (!lost && visible && !document.hidden && container.clientWidth && container.clientHeight) draw();
     }
 
@@ -161,11 +158,6 @@ function installDither(gl, canvas, container) {
     });
     intersectionObserver.observe(container);
 
-    toggle.addEventListener("click", () => {
-        paused = !paused;
-        toggle.textContent = paused ? "Play animation" : "Pause animation";
-        sync();
-    });
     motion.addEventListener("change", sync);
     theme.addEventListener("change", colors);
     document.addEventListener("visibilitychange", sync);
