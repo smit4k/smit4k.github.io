@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LambdaVim</title>
+  <meta name="description" content="An experimental web browser that embeds the Servo engine inside a gpui window.">
+  <link rel="icon" href="/meridian/assets/meridian-logo.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      max-width: 72ch;
+      margin: 48px auto;
+      padding: 0 24px;
+      font-family: Inter, "Inter", sans-serif;
+      font-size-adjust: 0.5;
+      background: #fff;
+      color: #000;
+    }
+    h1 { text-align: left; margin-bottom: 0.25em; }
+    .tagline { margin-top: 0; font-style: italic; }
+    footer { text-align: center; }
+    figure { margin: 0; }
+    figure img { display: block; width: 100%; height: auto; }
+    figcaption { text-align: center; font-style: italic; }
+    .code-block {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 16px 0 24px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      background: #f7f7f6;
+    }
+    .code-block pre {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      overflow-x: auto;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 0.875em;
+      font-size-adjust: none;
+      line-height: 1.5;
+    }
+    .code-block code { font: inherit; }
+    .copy-button {
+      flex-shrink: 0;
+      min-height: 28px;
+      padding: 4px 8px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: #595959;
+      font: inherit;
+      font-size: 0.8em;
+      line-height: 1.5;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .copy-button:hover { background: #e8e8e8; color: #000; }
+    .copy-button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+    .wide {
+      width: min(120%, calc(100vw - 48px));
+      margin: 32px 0 32px 50%;
+      transform: translateX(-50%);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 600px) {
+      .gallery { grid-template-columns: 1fr; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #000; color: #fff; }
+      .code-block { background: #151515; }
+      .copy-button { color: #b5b5b5; }
+      .copy-button:hover { background: #292929; color: #fff; }
+      h1 img { filter: invert(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>LambdaVim</h1>
+  <p class="tagline">Neovim config without the bloat - everything is in your control.</p>
+
+  <p>
+    LambdaVim is a minimal, modern <a
+      href="https://neovim.io/">Neovim</a> configuration designed for developers who want a clean and productive editing experience without the bloat. While it is meant to work straight out of the box, you can easily customize it to your liking by adding more plugins.
+
+  </p>
+
+  <figure class="wide">
+    <img src="https://cdn.oppi.li/meridian/Screenshot%202026-11-05%20at%2018.47.10.png" alt="Meridian with vertical tabs, showing the Meridian homepage">
+  </figure>
+
+ <h2>Installation</h2>
+  Back up your current config if you have one:
+
+  <div class="code-block">
+    <pre><code>mv ~/.config/nvim ~/.config/nvim.bak</code></pre>
+    <button class="copy-button" type="button" aria-live="polite" hidden>Copy</button>
+  </div>
+
+  Clone LambdaVim:
+
+  <div class="code-block">
+    <pre><code>git clone https://github.com/smit4k/LambdaVim ~/.config/nvim</code></pre>
+    <button class="copy-button" type="button" aria-live="polite" hidden>Copy</button>
+  </div>
+
+
+  Launch Neovim:
+
+  <div class="code-block">
+    <pre><code>nvim</code></pre>
+    <button class="copy-button" type="button" aria-live="polite" hidden>Copy</button>
+  </div>
+
+
+
+  <h2>Features</h2>
+  <ul>
+    <li>File tree</li>
+    <li>LSP</li>
+    <li>Syntax highlighting</li>
+    <li>Formatter</li>
+    <li>Statusline</li>
+    <li>Git signs</li>
+    <li>Telescope</li>
+    <li>Dashboard</li>
+  </ul>
+<!--
+  <div class="wide gallery">
+    <figure>
+      <img src="https://cdn.oppi.li/meridian/Screenshot%202026-11-05%20at%2018.57.35.png" alt="Address bar typeahead suggesting bookmarks and history" loading="lazy">
+      <figcaption>Typeahead from bookmarks and history</figcaption>
+    </figure>
+    <figure>
+      <img src="https://cdn.oppi.li/meridian/Screenshot%202026-11-05%20at%2018.57.12.png" alt="Right-click context menu over a link" loading="lazy">
+      <figcaption>Context menu</figcaption>
+    </figure>
+    <figure>
+      <img src="https://cdn.oppi.li/meridian/Screenshot%202026-11-05%20at%2018.55.19.png" alt="Meridian in dark mode" loading="lazy">
+      <figcaption>Dark mode</figcaption>
+    </figure>
+    <figure>
+      <img src="https://cdn.oppi.li/meridian/Screenshot%202026-11-05%20at%2018.52.51.png" alt="An article in reader view" loading="lazy">
+      <figcaption>Reader view</figcaption>
+    </figure>
+  </div>
+-->
+  <p>
+      LambdaVim is a starting point for your own Neovim config. Change the keybindings, swap plugins, add more colorschemes. Everything lives in your config.
+  </p>
+
+  <footer><a href="https://github.com/smit4k/LambdaVim">Repository</a> · <a href="https://smitp.cc">smitp.cc</a></footer>
+  <script>
+    document.querySelectorAll(".code-block").forEach((block) => {
+      const button = block.querySelector(".copy-button");
+      const code = block.querySelector("code");
+      button.addEventListener("click", async () => {
+        button.disabled = true;
+        try {
+          await navigator.clipboard.writeText(code.textContent);
+          button.textContent = "Copied";
+        } catch {
+          button.textContent = "Copy failed";
+        }
+        setTimeout(() => {
+          button.textContent = "Copy";
+          button.disabled = false;
+        }, 2000);
+      });
+      button.hidden = false;
+    });
+  </script>
+</body>
+</html>
