@@ -2,9 +2,38 @@
 {% block container_class %} container-home{% endblock container_class %}
 {% block content %}
 <div class="home-view">
-    <div class="home-banner">
-        <div class="home-dither" aria-hidden="true"></div>
-    </div>
+    <pre class="home-ascii" aria-hidden="true">                       ___ .
+                   _~"|  ~~ ~.\.~
+                  /   :   /   /  \_
+                 ?""  ;  `  ,'     )
+        /-,      /    .   .     .  |
+       /   ~-_  /   dp   .    .    |
+    .%"":    .? |:    . .   .      |
+   %    '.   . \|:. . ..  .   .   /
+ /  '.   '.: : :| :   .. . .    _/
+/ ~~~::.   .:: ::. . .::.:. ..'~
+\::... `'.. : : : " . :. .  ~~|    _____
+(:::. ..   '.: .:.::. : . : "/__-""     --
+ )"".&gt;  --~~~__. ::::*## :.:.:)  :    .:` ~\
+|..::'      &gt;&gt;    #######  '.: .' .  .`     ?
+\_.___      :''&gt; ######### ::.".    ~ ..~'" |,
+     _"&gt;~____~~::. #* )#### :  ..~       .   )
+    /:.:'';.:::_-  _-#####*:;: ::&gt;,,          }
+   o__o___q~_-" _-"###### .:.''     ..~~ ~    |
+  ( o() &amp;@&amp;__--"  *::####::"  ";..    ~~...::.)
+ (o&amp; O&amp; O?S).`   .:':::*: :      ~~~...     "/
+   oS %@&amp;&gt;/    .:'  ::::: :.       .~  "'.  {
+   \~*~~""   __:/   "::::..L        ~     ''/
+    |::'    /##)     :':::::\         .   %
+    \:; .  |#/       : :::::::-___      -"
+     \::::: |        : :::::::::::\----"
+     \::::::|:.      : :::::::::::|
+     \::::::|'     . : ::::::::::::|
+      -::::/ \     :.'::::::::::::/
+        ~__/  \.   ;:.::::::::::_/
+               \::.::::::::::::/
+                 --_;::::::_-~/
+                     """"""</pre>
     <div class="home-content">
         <p>
             I'm Smit, a university student from Michigan. I enjoy coding in Rust, listening to music, and drinking tea. You can find my projects on <a href="https://github.com/smit4k/">Github</a> and <a href="https://tangled.org/smitp.cc">Tangled.</a>
@@ -78,7 +107,6 @@
         </footer>
     </div>
 </div>
-<script type="module" src="{{ get_url(path='dither.js', cachebust=true) }}"></script>
 <script type="module" src="{{ get_url(path='home-sections.js', cachebust=true) }}"></script>
 <script type="module" src="{{ get_url(path='music.js', cachebust=true) }}"></script>
 {% endblock content %}
