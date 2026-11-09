@@ -4,10 +4,10 @@ const { readFileSync } = require("node:fs");
 const { runInNewContext } = require("node:vm");
 
 const elements = Object.fromEntries(
-    ["writing-tab", "music-tab", "writing-links", "music-links", "writing", "music"].map((name) => [
+    ["writing-tab", "now-tab", "writing-links", "writing", "now", "now-help"].map((name) => [
         `#home-${name}`,
         {
-            hidden: true,
+            hidden: name === "now-tab",
             setAttribute(name, value) { this[name] = value; },
             addEventListener(name, callback) { this[name] = callback; },
         },
@@ -21,28 +21,43 @@ elements["#home-writing"].parentElement = {
     },
 };
 const script = readFileSync(`${__dirname}/../static/home-sections.js`, "utf8");
-runInNewContext(script, { document: { querySelector: (selector) => elements[selector] } });
+const document = {
+    querySelector: (selector) => elements[selector],
+    addEventListener(name, callback) { this[name] = callback; },
+};
+runInNewContext(script, { document });
 const writingTab = elements["#home-writing-tab"];
-const musicTab = elements["#home-music-tab"];
+const nowTab = elements["#home-now-tab"];
 const writing = elements["#home-writing"];
-const music = elements["#home-music"];
+const now = elements["#home-now"];
 assert.equal(writingTab.disabled, false);
-assert.equal(musicTab.hidden, false);
-assert.equal(music.hidden, false);
-assert.equal(music.inert, true);
-assert.equal(music["aria-hidden"], "true");
+assert.equal(nowTab.hidden, false);
+assert.equal(now.hidden, false);
+assert.equal(now.inert, true);
+assert.equal(now["aria-hidden"], "true");
 assert.ok(classes.has("home-panels-ready"));
-for (const showMusic of [true, true, false, false, true, false]) {
-    (showMusic ? musicTab : writingTab).click();
-    assert.equal(classes.has("show-music"), showMusic);
-    assert.equal(writingTab["aria-pressed"], String(!showMusic));
-    assert.equal(musicTab["aria-pressed"], String(showMusic));
-    assert.equal(writing.inert, showMusic);
-    assert.equal(music.inert, !showMusic);
-    assert.equal(writing["aria-hidden"], String(showMusic));
-    assert.equal(music["aria-hidden"], String(!showMusic));
-    assert.equal(elements["#home-writing-links"].hidden, showMusic);
-    assert.equal(elements["#home-music-links"].hidden, !showMusic);
+for (const showNow of [true, true, false, false, true, false]) {
+    (showNow ? nowTab : writingTab).click();
+    assert.equal(classes.has("show-now"), showNow);
+    assert.equal(writingTab["aria-pressed"], String(!showNow));
+    assert.equal(nowTab["aria-pressed"], String(showNow));
+    assert.equal(writing.inert, showNow);
+    assert.equal(now.inert, !showNow);
+    assert.equal(writing["aria-hidden"], String(showNow));
+    assert.equal(now["aria-hidden"], String(!showNow));
+    assert.equal(elements["#home-writing-links"].hidden, showNow);
 }
+const nowHelp = elements["#home-now-help"];
+nowHelp.classList = new Set();
+nowHelp.classList.remove = nowHelp.classList.delete;
+document.keydown({ key: "Enter" });
+assert.equal(nowHelp.classList.has("dismissed"), false);
+document.keydown({ key: "Escape" });
+assert.equal(nowHelp.classList.has("dismissed"), true);
+nowHelp.mouseenter();
+assert.equal(nowHelp.classList.has("dismissed"), false);
+document.keydown({ key: "Escape" });
+nowHelp.focusin();
+assert.equal(nowHelp.classList.has("dismissed"), false);
 runInNewContext(script, { document: { querySelector: () => null } });
 console.log("Homepage section checks passed.");

@@ -1,32 +1,36 @@
 const writingTab = document.querySelector("#home-writing-tab");
 
 if (writingTab) {
-    const musicTab = document.querySelector("#home-music-tab");
+    const nowTab = document.querySelector("#home-now-tab");
     const links = document.querySelector("#home-writing-links");
-    const musicLinks = document.querySelector("#home-music-links");
     const writing = document.querySelector("#home-writing");
-    const music = document.querySelector("#home-music");
+    const now = document.querySelector("#home-now");
     const panels = writing.parentElement;
 
-    music.hidden = false;
-    music.inert = true;
-    music.setAttribute("aria-hidden", "true");
+    now.inert = true;
+    now.setAttribute("aria-hidden", "true");
     panels.classList.add("home-panels-ready");
     writingTab.disabled = false;
-    musicTab.hidden = false;
+    nowTab.hidden = false;
 
-    function selectSection(showMusic) {
-        panels.classList.toggle("show-music", showMusic);
-        writingTab.setAttribute("aria-pressed", String(!showMusic));
-        musicTab.setAttribute("aria-pressed", String(showMusic));
-        links.hidden = showMusic;
-        musicLinks.hidden = !showMusic;
-        writing.inert = showMusic;
-        music.inert = !showMusic;
-        writing.setAttribute("aria-hidden", String(showMusic));
-        music.setAttribute("aria-hidden", String(!showMusic));
+    function selectSection(showNow) {
+        panels.classList.toggle("show-now", showNow);
+        writingTab.setAttribute("aria-pressed", String(!showNow));
+        nowTab.setAttribute("aria-pressed", String(showNow));
+        links.hidden = showNow;
+        writing.inert = showNow;
+        now.inert = !showNow;
+        writing.setAttribute("aria-hidden", String(showNow));
+        now.setAttribute("aria-hidden", String(!showNow));
     }
 
     writingTab.addEventListener("click", () => selectSection(false));
-    musicTab.addEventListener("click", () => selectSection(true));
+    nowTab.addEventListener("click", () => selectSection(true));
+
+    const nowHelp = document.querySelector("#home-now-help");
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") nowHelp.classList.add("dismissed");
+    });
+    nowHelp.addEventListener("mouseenter", () => nowHelp.classList.remove("dismissed"));
+    nowHelp.addEventListener("focusin", () => nowHelp.classList.remove("dismissed"));
 }

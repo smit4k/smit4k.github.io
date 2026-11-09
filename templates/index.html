@@ -44,14 +44,11 @@
         <div class="section-heading">
             <h2 class="home-section-title">
                 <button id="home-writing-tab" type="button" aria-pressed="true" aria-controls="home-writing" disabled>Writing</button>
-                <button id="home-music-tab" type="button" aria-pressed="false" aria-controls="home-music" hidden>Last.fm</button>
+                <button id="home-now-tab" type="button" aria-pressed="false" aria-controls="home-now" hidden>Now</button>
             </h2>
             <p id="home-writing-links">
                 <a href="{{ get_url(path='@/writing/_index.md') }}">view all</a>
                 <a href="{{ get_url(path='rss.xml') }}">rss</a>
-            </p>
-            <p id="home-music-links" hidden>
-                <a class="music-profile" href="https://www.last.fm/user/{{ config.extra.lastfm_user }}">profile ↗</a>
             </p>
         </div>
         <div class="home-panels">
@@ -73,29 +70,21 @@
             {% endfor %}
         </ul>
         </div>
-        <div id="home-music" class="music-section" aria-label="Last.fm" hidden
-            data-lastfm-user="{{ config.extra.lastfm_user }}"
-            data-lastfm-api-key="{{ config.extra.lastfm_api_key }}">
-            <p class="music-status" role="status">Recent listening is available on Last.fm.</p>
-            <ul class="music-list" aria-label="Recent tracks" hidden></ul>
-            <template id="music-track-template">
-                <li class="music-track">
-                    <span class="music-cover" aria-hidden="true">
-                        <span>♪</span>
-                        <img alt="" width="60" height="60" decoding="async" hidden />
-                    </span>
-                    <div class="music-details">
-                        <a class="music-title"></a>
-                        <span class="music-artist"></span>
-                        <span class="music-album"></span>
-                    </div>
-                    <span class="music-playing" hidden>Now playing</span>
-                    <time class="music-time" hidden></time>
-                </li>
-            </template>
+        <div id="home-now" aria-label="Now">
+            <noscript><h2>Now</h2></noscript>
+            <ul>
+                <li>Focusing on University</li>
+                <li>Getting better at Rust</li>
+                <li>Improving my dev workflow (Jujutsu, Zellij, etc.)</li>
+                <li>Contributing to open-source projects</li>
+                <li>Trying get back into reading</li>
+            </ul>
+            <p id="home-now-help" class="now-help">
+                <abbr tabindex="0" aria-describedby="now-description">What's this?</abbr>
+                <span id="now-description" role="tooltip">This is a now page, it tells you where my time is going. I will update this every few weeks.</span>
+            </p>
         </div>
         </div>
-        <noscript><p><a href="https://www.last.fm/user/{{ config.extra.lastfm_user }}">Last.fm profile</a></p></noscript>
         <hr />
         <footer class="home-footer">
             <p>
@@ -109,5 +98,4 @@
 </div>
 <script type="module" src="{{ get_url(path='ascii-hover.js', cachebust=true) }}"></script>
 <script type="module" src="{{ get_url(path='home-sections.js', cachebust=true) }}"></script>
-<script type="module" src="{{ get_url(path='music.js', cachebust=true) }}"></script>
 {% endblock content %}
