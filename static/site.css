@@ -169,8 +169,8 @@ body {
     background: transparent !important;
     overflow: visible;
     font-variant-ligatures: none;
-    font-size: clamp(0.5rem, 1vw, 0.75rem);
-    line-height: 1;
+    font-size: clamp(0.25rem, 0.5vw, 0.35rem);
+    line-height: 1.35;
     color: var(--color-strong);
     user-select: none;
 }

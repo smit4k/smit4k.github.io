@@ -5,7 +5,7 @@ if (art) {
     const lines = original.split("\n");
     const width = Math.max(...lines.map((line) => line.length));
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
-    const shades = ".:-=+*#%@";
+    const shades = "⠁⠃⠇⠏⠟⠿⡿⣿";
     const bayer = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 
     function distort(event) {
@@ -19,7 +19,7 @@ if (art) {
 
         art.textContent = lines
             .map((line, row) => [...line].map((char, column) => {
-                if (/\s/.test(char)) return char;
+                if (/[\s\u2800]/.test(char)) return char;
                 const dx = rect.left + (column + 0.5) * cellWidth - event.clientX;
                 const dy = rect.top + (row + 0.5) * cellHeight - event.clientY;
                 const strength = Math.max(0, 1 - Math.hypot(dx, dy) / 90);
