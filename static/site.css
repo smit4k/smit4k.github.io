@@ -35,7 +35,7 @@
     --color-link: #7eb3f8;
     --color-muted: #8f8f8f;
     --color-strong: #e0e0e0;
-    --color-ascii-blossom: #ff78ad;
+    --color-ascii-blossom: #ffa4cf;
     --color-meta: #a8a8a8;
     --color-current: #c084fc;
     --color-border: #333;
@@ -79,7 +79,6 @@
         --color-link: #1f6fba;
         --color-muted: #555;
         --color-strong: #000;
-        --color-ascii-blossom: #bc285f;
         --color-meta: #555;
         --color-current: #c084fc;
         --color-border: #d0d0d0;
@@ -182,11 +181,11 @@ body {
 }
 
 .ascii-blossom[data-shade="red"] {
-    color: #f32157;
+    color: #ff6ba3;
 }
 
 .ascii-blossom[data-shade="light"] {
-    color: #ffb5d4;
+    color: #ffdaec;
 }
 
 .ascii-blossom[data-shade="white"] {
