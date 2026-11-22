@@ -7,6 +7,15 @@ if (art) {
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const shades = "⠁⠃⠇⠏⠟⠿⡿⣿";
     const bayer = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+    const nodes = [];
+    const walker = document.createTreeWalker(art, NodeFilter.SHOW_TEXT);
+    let offset = 0;
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        nodes.push({ node, text: node.data, offset });
+        offset += node.data.length;
+    }
 
     function distort(event) {
         if (motion.matches) return;
@@ -17,7 +26,7 @@ if (art) {
         const cellWidth = range.getBoundingClientRect().width / width;
         const cellHeight = rect.height / lines.length;
 
-        art.textContent = lines
+        const distorted = lines
             .map((line, row) => [...line].map((char, column) => {
                 if (/[\s\u2800]/.test(char)) return char;
                 const dx = rect.left + (column + 0.5) * cellWidth - event.clientX;
@@ -29,10 +38,16 @@ if (art) {
                     : char;
             }).join(""))
             .join("\n");
+
+        for (const { node, text, offset } of nodes) {
+            node.data = distorted.slice(offset, offset + text.length);
+        }
     }
 
     function restore() {
-        art.textContent = original;
+        for (const { node, text } of nodes) {
+            node.data = text;
+        }
     }
 
     art.addEventListener("mouseenter", distort);
