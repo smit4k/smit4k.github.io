@@ -40,8 +40,8 @@ jobs:
         working-directory: .skyshot-source
       - run: npm run test:site
         working-directory: .skyshot-source
+      - run: cp -R .skyshot-source/dist static/skyshot
       - run: zola build
-      - run: cp -R .skyshot-source/dist public/skyshot
       - run: node tests/skyshot.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
