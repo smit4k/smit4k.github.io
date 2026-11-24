@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: smit4k/skyshot
-          ref: 4dacf44dbd558348713d938f66a0901c1d6e358f
+          ref: 1f935ef46d37a37dee32123f397f3f13650d3220
           path: .skyshot-source
       - uses: actions/setup-node@v4
         with:
