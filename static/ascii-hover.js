@@ -5,7 +5,7 @@ if (art) {
     const lines = original.split("\n");
     const width = Math.max(...lines.map((line) => line.length));
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
-    const shades = "⠁⠃⠇⠏⠟⠿⡿⣿";
+    const shades = /[\u2801-\u28ff]/.test(original) ? "⠁⠃⠇⠏⠟⠿⡿⣿" : ".:-=+*#%@";
     const bayer = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
     const nodes = [];
     const walker = document.createTreeWalker(art, NodeFilter.SHOW_TEXT);

@@ -4,12 +4,11 @@ const { readFileSync } = require("node:fs");
 const { runInNewContext } = require("node:vm");
 const script = readFileSync(`${__dirname}/../static/ascii-hover.js`, "utf8");
 
-function setup(reduced = false) {
-    const spans = [
-        { className: "ascii-blossom", node: { data: "⡁⠀" } },
-        { className: "", node: { data: "⡇\n ⣿" } },
-        { className: "", node: { data: "⣿" } },
-    ];
+function setup(reduced = false, text = ["⡁⠀", "⡇\n ⣿", "⣿"]) {
+    const spans = text.map((data, index) => ({
+        className: index === 0 ? "ascii-blossom" : "",
+        node: { data },
+    }));
     const art = {
         childNodes: spans,
         get textContent() { return this.childNodes.map((span) => span.node.data).join(""); },
@@ -69,5 +68,13 @@ assert.equal(art.textContent, original);
 const reduced = setup(true);
 reduced.art.events.mouseenter({ clientX: 105, clientY: 205 });
 assert.equal(reduced.art.textContent, original, "Reduced motion disables hover distortion");
+const flower = setup(false, ["# ", "@\n @", "#"]);
+const originalFlower = flower.art.textContent;
+flower.art.events.mouseenter({ clientX: 105, clientY: 205 });
+assert.equal(flower.art.textContent[0], "@", "The flower uses ASCII hover shades");
+assert.match(flower.art.textContent, /^[\x20-\x7e\n]+$/, "The flower stays ASCII during hover");
+assert.deepEqual(flower.art.textContent.match(/\s/g), originalFlower.match(/\s/g));
+flower.art.events.mouseleave();
+assert.equal(flower.art.textContent, originalFlower, "Leaving restores the exact flower");
 runInNewContext(script, { document: { querySelector: () => null } });
 console.log("ASCII hover checks passed.");
