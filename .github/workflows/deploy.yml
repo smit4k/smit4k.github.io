@@ -79,6 +79,19 @@ jobs:
       - run: sh tests/admonitions.sh
       - run: sh tests/post-navigation.sh
       - run: node tests/home-sections.cjs
+      - name: Download Skyshot fonts
+        working-directory: .skyshot-source
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/fonts.mjs; then
+              exit 0
+            fi
+            if [[ "$attempt" -lt 3 ]]; then
+              sleep "$((attempt * 15))"
+            fi
+          done
+          exit 1
       - run: npm run build:wasm
         working-directory: .skyshot-source
       - run: npm run test:site
