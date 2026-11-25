@@ -3,27 +3,56 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '23 * * * *'
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
+  resolve-skyshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      revision: ${{ steps.resolve.outputs.revision }}
+    steps:
+      - id: resolve
+        shell: bash
+        run: |
+          revision=$(git ls-remote --exit-code https://github.com/smit4k/skyshot.git refs/heads/main | cut -f1)
+          if [[ ! "$revision" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'Could not resolve the Skyshot main branch' >&2
+            exit 1
+          fi
+          if [[ "$GITHUB_EVENT_NAME" == schedule ]]; then
+            published=$(curl --fail --silent --max-time 15 https://smitp.cc/skyshot/version.txt || true)
+            if [[ "$revision" == "$published" ]]; then
+              echo "Skyshot $revision is already live"
+              exit 0
+            fi
+          fi
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: resolve-skyshot
+    if: needs.resolve-skyshot.outputs.revision != ''
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/checkout@v4
         with:
           repository: smit4k/skyshot
-          ref: 1f935ef46d37a37dee32123f397f3f13650d3220
+          ref: ${{ needs.resolve-skyshot.outputs.revision }}
           path: .skyshot-source
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -40,7 +69,12 @@ jobs:
         working-directory: .skyshot-source
       - run: npm run test:site
         working-directory: .skyshot-source
-      - run: cp -R .skyshot-source/dist static/skyshot
+      - name: Stage Skyshot
+        env:
+          SKYSHOT_REVISION: ${{ needs.resolve-skyshot.outputs.revision }}
+        run: |
+          cp -R .skyshot-source/dist static/skyshot
+          printf '%s\n' "$SKYSHOT_REVISION" > static/skyshot/version.txt
       - run: zola build
       - run: node tests/skyshot.mjs
       - uses: actions/upload-pages-artifact@v3
@@ -48,6 +82,9 @@ jobs:
           path: public
 
   deploy:
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
