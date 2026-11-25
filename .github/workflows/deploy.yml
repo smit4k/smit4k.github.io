@@ -59,9 +59,23 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
+      - name: Read Skyshot's wasm-bindgen version
+        id: wasm-bindgen
+        working-directory: .skyshot-source
+        run: |
+          python3 - <<'PY'
+          import os
+          import tomllib
+
+          with open("Cargo.lock", "rb") as lock:
+              packages = tomllib.load(lock)["package"]
+          version, = [package["version"] for package in packages if package["name"] == "wasm-bindgen"]
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              print(f"version={version}", file=output)
+          PY
       - uses: taiki-e/install-action@v2
         with:
-          tool: zola@0.22.1,wasm-bindgen@0.2.130
+          tool: zola@0.22.1,wasm-bindgen@${{ steps.wasm-bindgen.outputs.version }}
       - run: sh tests/admonitions.sh
       - run: sh tests/post-navigation.sh
       - run: node tests/home-sections.cjs
