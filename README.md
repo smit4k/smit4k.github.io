@@ -2,7 +2,7 @@
 My current homepage.
 [![](homepage_light.png)](https://smitp.cc/)
 
-The homepage switches between Writing, Now, and Projects using the section
+The homepage switches between Writing, Projects, and Now using the section
 heading buttons. Update the Now bullets and highlighted projects in
 `templates/index.html`. Without JavaScript, all three sections remain visible.
 

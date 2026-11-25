@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const { readFileSync } = require("node:fs");
 const { runInNewContext } = require("node:vm");
 
-const sections = ["writing", "now", "projects"];
+const sections = ["writing", "projects", "now"];
 const elements = Object.fromEntries(
     ["writing-links", "now-help", ...sections].map((name) => [
         `#home-${name}`,
