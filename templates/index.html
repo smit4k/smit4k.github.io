@@ -14,6 +14,7 @@
             <h2 class="home-section-title">
                 <button id="home-writing-tab" type="button" aria-pressed="true" aria-controls="home-writing" disabled>Writing</button>
                 <button id="home-now-tab" type="button" aria-pressed="false" aria-controls="home-now" hidden>Now</button>
+                <button id="home-projects-tab" type="button" aria-pressed="false" aria-controls="home-projects" hidden>Projects</button>
             </h2>
             <p id="home-writing-links">
                 <a href="{{ get_url(path='@/writing/_index.md') }}">view all</a>
@@ -52,6 +53,33 @@
                 <abbr tabindex="0" aria-describedby="now-description">What's this?</abbr>
                 <span id="now-description" role="tooltip">This is a now page, it tells you where my time is going. I will update this every few weeks.</span>
             </p>
+        </div>
+        <div id="home-projects" aria-label="Projects">
+            <noscript><h2>Projects</h2></noscript>
+            <ul class="post-list project-list" role="list">
+                <li>
+                    <span>Skyshot</span>
+                    <span class="project-links">
+                        <a href="https://github.com/smit4k/skyshot" aria-label="source for Skyshot">source</a>
+                        <a href="{{ get_url(path='skyshot', trailing_slash=true) }}" aria-label="website for Skyshot">website</a>
+                    </span>
+                    <p>Save public Bluesky posts and profile headers as PNGs.</p>
+                </li>
+                <li>
+                    <span>shale.nvim</span>
+                    <span class="project-links">
+                        <a href="https://github.com/smit4k/shale.nvim" aria-label="source for shale.nvim">source</a>
+                    </span>
+                    <p>A dark Neovim theme inspired by shale.</p>
+                </li>
+                <li>
+                    <span>LQF</span>
+                    <span class="project-links">
+                        <a href="https://github.com/smit4k/lqf-spec" aria-label="source for LQF">source</a>
+                    </span>
+                    <p>A lightweight configuration language built around the greater-than sign.</p>
+                </li>
+            </ul>
         </div>
         </div>
         <hr />
