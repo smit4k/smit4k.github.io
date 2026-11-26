@@ -1,28 +1,31 @@
-const tabs = document.querySelectorAll(".home-section-title button");
+const writingTab = document.querySelector("#home-writing-tab");
 
-if (tabs.length) {
+if (writingTab) {
+    const nowTab = document.querySelector("#home-now-tab");
     const links = document.querySelector("#home-writing-links");
-    const panels = document.querySelector(".home-panels");
+    const writing = document.querySelector("#home-writing");
+    const now = document.querySelector("#home-now");
+    const panels = writing.parentElement;
 
-    function selectSection(selectedTab) {
-        for (const tab of tabs) {
-            const panel = document.getElementById(tab.getAttribute("aria-controls"));
-            const selected = tab === selectedTab;
-            tab.setAttribute("aria-pressed", String(selected));
-            panel.inert = !selected;
-            panel.setAttribute("aria-hidden", String(!selected));
-        }
-        links.hidden = selectedTab.id !== "home-writing-tab";
-    }
-
-    selectSection(tabs[0]);
+    now.inert = true;
+    now.setAttribute("aria-hidden", "true");
     panels.classList.add("home-panels-ready");
+    writingTab.disabled = false;
+    nowTab.hidden = false;
 
-    for (const tab of tabs) {
-        tab.hidden = false;
-        tab.disabled = false;
-        tab.addEventListener("click", () => selectSection(tab));
+    function selectSection(showNow) {
+        panels.classList.toggle("show-now", showNow);
+        writingTab.setAttribute("aria-pressed", String(!showNow));
+        nowTab.setAttribute("aria-pressed", String(showNow));
+        links.hidden = showNow;
+        writing.inert = showNow;
+        now.inert = !showNow;
+        writing.setAttribute("aria-hidden", String(showNow));
+        now.setAttribute("aria-hidden", String(!showNow));
     }
+
+    writingTab.addEventListener("click", () => selectSection(false));
+    nowTab.addEventListener("click", () => selectSection(true));
 
     const nowHelp = document.querySelector("#home-now-help");
     document.addEventListener("keydown", (event) => {

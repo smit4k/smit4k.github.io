@@ -3,59 +3,49 @@ const assert = require("node:assert/strict");
 const { readFileSync } = require("node:fs");
 const { runInNewContext } = require("node:vm");
 
-const sections = ["writing", "projects", "now"];
 const elements = Object.fromEntries(
-    ["writing-links", "now-help", ...sections].map((name) => [
+    ["writing-tab", "now-tab", "writing-links", "writing", "now", "now-help"].map((name) => [
         `#home-${name}`,
         {
+            hidden: name === "now-tab",
             setAttribute(name, value) { this[name] = value; },
             addEventListener(name, callback) { this[name] = callback; },
         },
     ]),
 );
-const tabs = sections.map((section) => ({
-    id: `home-${section}-tab`,
-    getAttribute(name) {
-        assert.equal(name, "aria-controls");
-        return `home-${section}`;
-    },
-    setAttribute(name, value) { this[name] = value; },
-    addEventListener(name, callback) { this[name] = callback; },
-}));
 const classes = new Set();
-elements[".home-panels"] = { classList: classes };
+elements["#home-writing"].parentElement = {
+    classList: {
+        add(name) { classes.add(name); },
+        toggle(name, enabled) { enabled ? classes.add(name) : classes.delete(name); },
+    },
+};
 const script = readFileSync(`${__dirname}/../static/home-sections.js`, "utf8");
 const document = {
     querySelector: (selector) => elements[selector],
-    querySelectorAll: (selector) => {
-        assert.equal(selector, ".home-section-title button");
-        return tabs;
-    },
-    getElementById: (id) => elements[`#${id}`],
     addEventListener(name, callback) { this[name] = callback; },
 };
 runInNewContext(script, { document });
-for (const tab of tabs) {
-    assert.equal(tab.disabled, false);
-    assert.equal(tab.hidden, false);
-}
+const writingTab = elements["#home-writing-tab"];
+const nowTab = elements["#home-now-tab"];
+const writing = elements["#home-writing"];
+const now = elements["#home-now"];
+assert.equal(writingTab.disabled, false);
+assert.equal(nowTab.hidden, false);
+assert.equal(now.hidden, false);
+assert.equal(now.inert, true);
+assert.equal(now["aria-hidden"], "true");
 assert.ok(classes.has("home-panels-ready"));
-
-function assertSelected(selectedSection) {
-    for (const [index, section] of sections.entries()) {
-        const selected = section === selectedSection;
-        const panel = elements[`#home-${section}`];
-        assert.equal(tabs[index]["aria-pressed"], String(selected));
-        assert.equal(panel.inert, !selected);
-        assert.equal(panel["aria-hidden"], String(!selected));
-    }
-    assert.equal(elements["#home-writing-links"].hidden, selectedSection !== "writing");
-}
-
-assertSelected("writing");
-for (const section of ["now", "projects", "projects", "writing", "projects", "now", "writing"]) {
-    tabs[sections.indexOf(section)].click();
-    assertSelected(section);
+for (const showNow of [true, true, false, false, true, false]) {
+    (showNow ? nowTab : writingTab).click();
+    assert.equal(classes.has("show-now"), showNow);
+    assert.equal(writingTab["aria-pressed"], String(!showNow));
+    assert.equal(nowTab["aria-pressed"], String(showNow));
+    assert.equal(writing.inert, showNow);
+    assert.equal(now.inert, !showNow);
+    assert.equal(writing["aria-hidden"], String(showNow));
+    assert.equal(now["aria-hidden"], String(!showNow));
+    assert.equal(elements["#home-writing-links"].hidden, showNow);
 }
 const nowHelp = elements["#home-now-help"];
 nowHelp.classList = new Set();
@@ -69,5 +59,5 @@ assert.equal(nowHelp.classList.has("dismissed"), false);
 document.keydown({ key: "Escape" });
 nowHelp.focusin();
 assert.equal(nowHelp.classList.has("dismissed"), false);
-runInNewContext(script, { document: { querySelectorAll: () => [] } });
+runInNewContext(script, { document: { querySelector: () => null } });
 console.log("Homepage section checks passed.");
