@@ -42,6 +42,7 @@
     --color-heading-anchor: #777;
     --color-heading-anchor-hover: #ccc;
     --color-code-bg: #080808;
+    --color-inline-code-bg: #242424;
     --color-toc-highlight: #1a1a1a;
     --color-button-bg: #111;
     --color-button-hover: #f0f0f0;
@@ -85,6 +86,7 @@
         --color-heading-anchor: #777;
         --color-heading-anchor-hover: #555;
         --color-code-bg: #f7f7f7;
+        --color-inline-code-bg: #eee;
         --color-toc-highlight: #f7f7f7;
         --color-button-bg: #fff;
         --color-button-hover: #000;
@@ -795,8 +797,9 @@ pre {
 }
 
 code:not(pre code) {
-    padding: 0 0.2rem;
-    background: var(--color-code-bg);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+    background: var(--color-inline-code-bg);
     color: var(--color-strong);
 }
 
